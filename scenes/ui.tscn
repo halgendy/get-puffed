@@ -14,11 +14,13 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Control"]
+[node name="HBoxContainer" type="BoxContainer" parent="Control"]
 layout_mode = 1
 anchors_preset = -1
-offset_right = 2596.0
-offset_bottom = 256.0
+offset_left = 7.0
+offset_top = 11.0
+offset_right = 2603.0
+offset_bottom = 241.0
 scale = Vector2(0.2, 0.2)
 
 [node name="PauseScreen" parent="." instance=ExtResource("1_hbkvk")]

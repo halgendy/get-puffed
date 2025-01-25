@@ -7,7 +7,6 @@
 [ext_resource type="Script" path="res://script/health.gd" id="4_4ft6a"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_c7oot"]
-friction = 0.0
 bounce = 1.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uym41"]
@@ -15,7 +14,7 @@ transparency = 4
 albedo_color = Color(0.623529, 1, 1, 0.533333)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_5dac5"]
-radius = 4.0
+radius = 1.667
 
 [sub_resource type="Animation" id="Animation_1laxo"]
 resource_name = "walk"
@@ -56,15 +55,16 @@ _data = {
 [node name="Player" type="RigidBody3D"]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
 physics_material_override = SubResource("PhysicsMaterial_c7oot")
+continuous_cd = true
 script = ExtResource("1_fws5b")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, -0.0756044)
+transform = Transform3D(3.333, 0, 0, 0, 3.333, 0, 0, 0, 3.333, 0, 0, -0.0756044)
 texture_filter = 2
 texture = ExtResource("2_pgr8j")
 
 [node name="Sprite3D2" type="Sprite3D" parent="."]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, -0.0831589)
+transform = Transform3D(3.333, 0, 0, 0, 3.333, 0, 0, 0, 3.333, 0, 0, -0.0831589)
 texture_filter = 2
 texture = ExtResource("3_sw2bf")
 hframes = 2
@@ -72,7 +72,7 @@ frame = 1
 
 [node name="CSGSphere3D" type="CSGSphere3D" parent="."]
 use_collision = true
-radius = 4.0
+radius = 1.667
 radial_segments = 32
 rings = 16
 material = SubResource("StandardMaterial3D_uym41")

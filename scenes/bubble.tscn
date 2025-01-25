@@ -1,8 +1,69 @@
-[gd_scene load_steps=2 format=3 uid="uid://bthi7iwgbgtgr"]
+[gd_scene load_steps=9 format=3 uid="uid://bthi7iwgbgtgr"]
 
-[ext_resource type="Texture2D" uid="uid://cktg470ah87b3" path="res://assets/638079266840210955.png" id="1_d3so6"]
+[ext_resource type="Script" path="res://script/bubble.gd" id="1_3qwsu"]
+[ext_resource type="Texture2D" uid="uid://6yid0wm8avkx" path="res://assets/WATERUI.png" id="1_hwgci"]
 
-[node name="Control" type="TextureRect"]
-offset_right = 256.0
-offset_bottom = 256.0
-texture = ExtResource("1_d3so6")
+[sub_resource type="AtlasTexture" id="AtlasTexture_0b3ff"]
+atlas = ExtResource("1_hwgci")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o5wew"]
+atlas = ExtResource("1_hwgci")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n8sd7"]
+atlas = ExtResource("1_hwgci")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gfqi7"]
+atlas = ExtResource("1_hwgci")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_721ck"]
+atlas = ExtResource("1_hwgci")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vjxcv"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0b3ff")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o5wew")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n8sd7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gfqi7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_721ck")
+}],
+"loop": false,
+"name": &"drain",
+"speed": 5.0
+}]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 223.0
+offset_bottom = 226.0
+size_flags_horizontal = 3
+script = ExtResource("1_3qwsu")
+
+[node name="Bubble" type="AnimatedSprite2D" parent="."]
+texture_filter = 3
+scale = Vector2(14, 14)
+sprite_frames = SubResource("SpriteFrames_vjxcv")
+animation = &"drain"
+centered = false
+
+[connection signal="animation_finished" from="Bubble" to="." method="_on_bubble_animation_finished"]
