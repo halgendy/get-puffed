@@ -54,8 +54,8 @@ var last_walk_dir := Vector3.ZERO
 
 # Called every frame. (delta: float) is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if health.is_dead():
-		respawn()
+	#if health.is_dead():
+		#respawn()
 	
 	var mapped_scalar = remap(health.get_percent(), 0.0, 1.0, 1.65/3.0, 5.0/3.0)
 	$CSGSphere3D.radius = mapped_scalar
@@ -83,10 +83,11 @@ func _process(delta: float) -> void:
 	var damp_force = Vector3(linear_velocity.x, 0, linear_velocity.z) * damp_acceleration 
 	
 	# For future reference, apply_central force based on time already, so no * delta
-	apply_force((walk_force - damp_force), Vector3.UP * mapped_scalar * 0.7)
-	angular_velocity *= 0.99
+	apply_central_force((walk_force - damp_force) * mass)
+	#apply_torque((walk_force - damp_force) * mass * 0.2)
+	#angular_velocity *= 0.99
 	camera.position = camera.position.lerp(position + camera_offset, delta)
 	
-	if Input.is_action_just_pressed("dash") and last_walk_dir != Vector3.ZERO:
-		apply_central_force(last_walk_dir * 20000.0)
-		health.drain(20.0)
+	#if Input.is_action_just_pressed("dash") and last_walk_dir != Vector3.ZERO:
+		#apply_central_force(last_walk_dir * 20000.0 * mass)
+		#health.drain(20.0)
