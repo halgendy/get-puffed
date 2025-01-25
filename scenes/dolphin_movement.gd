@@ -16,6 +16,9 @@ var walking: bool = true
 # movement speed of the dolphin
 @export var speed: float
 
+# how fast the dolphin turns, in euler angles
+@export var turn_speed: float
+
 # how long the dolphin will wait at a patrol point before moving again
 @export var wait_timer: float
 
@@ -23,6 +26,8 @@ var walking: bool = true
 func _ready() -> void:
 	speed = 3.0
 	wait_timer = 5.0
+	turn_speed = 1.0
+	
 	patrol_points = self.get_parent().find_child("PatrolPoints").get_children()
 	
 	# var test = patrol_points.get_children()
@@ -52,11 +57,11 @@ func _physics_process(delta: float) -> void:
 	
 	if walking == false:
 		# currently waiting at a point
-		look_at(patrol_points[next_point_index].position)
+		_turn_towards_next_point(delta)
 		pass
 	else:
 		position = position.move_toward(patrol_points[next_point_index].position, delta * speed)
-		print("walk")
+		# print("walk")
 		
 		if position == patrol_points[next_point_index].position:
 			walking = false
@@ -67,6 +72,7 @@ func _on_timer_timeout() -> void:
 	# timer ended, we need to start walking
 	walking = true
 	print("=================TIMER OUT===========")
+	look_at(patrol_points[next_point_index].position)
 	
 func _reached_point() -> void:
 	
@@ -92,3 +98,8 @@ func _reached_point() -> void:
 	
 	$Timer.start(wait_timer)
 	pass
+
+func _turn_towards_next_point(delta: float) -> void:
+	var new_transform = transform.looking_at(patrol_points[next_point_index].position)
+	transform = transform.interpolate_with(new_transform, turn_speed * delta)
+	
