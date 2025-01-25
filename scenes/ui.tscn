@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://c61ghtyrl83a7"]
+[gd_scene load_steps=2 format=3 uid="uid://c61ghtyrl83a7"]
+
+[ext_resource type="PackedScene" uid="uid://l5704ijbft3k" path="res://Modules/UI/PauseScreen/pause_screen.tscn" id="1_hbkvk"]
 
 [node name="CanvasLayer" type="CanvasLayer"]
 
@@ -12,3 +14,6 @@ offset_bottom = 40.0
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="PauseScreen" parent="." instance=ExtResource("1_hbkvk")]
+visible = false

@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://d2qxkdbn0a0jm" path="res://PauseSymbol.png" id="1_tqu11"]
 
 [node name="PauseScreen" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

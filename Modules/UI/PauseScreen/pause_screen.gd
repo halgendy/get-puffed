@@ -1,6 +1,5 @@
 extends Control
 
-var paused := false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	hide()
@@ -12,11 +11,10 @@ func _process(delta: float) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("Pause"):
-		if !paused:
+		if !get_tree().paused:
 			get_tree().paused = true
 			show()
-			paused = true
+
 		else:
 			hide()
 			get_tree().paused = false
-			paused = false
