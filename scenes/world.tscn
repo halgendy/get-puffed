@@ -25,7 +25,7 @@ environment = SubResource("Environment_k3fwq")
 
 [node name="Player" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("1_ibnp7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.83541, 0)
-camera = NodePath("../CameraPivot")
+camera = NodePath("../CameraPivot/Camera3D")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 transform = Transform3D(2.333, 0, 0, 0, 2.333, 0, 0, 0, 2.333, 0, 14.527, 0)

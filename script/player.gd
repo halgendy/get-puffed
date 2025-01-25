@@ -11,6 +11,8 @@ var jump_trauma = 0.5
 var sprint_trauma = 0.2
 var walk_trauma = 0.1
 var stop_trauma = 0.5
+var breadcrumbs: Array = range(10).map(func(x): return position)
+var camera_current_breadcrumb = -1
 
 # Movement Parameters
 const walk_acceleration: float = 100 # meters / second^2
@@ -74,9 +76,11 @@ func _process(_delta: float) -> void:
 		
 		
 		
+		var camera_y_rot = camera.rotation.y
+		
 		# Calculate movement direction relative to twist_pivot | normalized to fix diagonal
 		# Use the mass and acceleration to calculate force | F = ma
-		var directional_vector: Vector3 = cardinal_direction.normalized()
+		var directional_vector: Vector3 = cardinal_direction.normalized().rotated(Vector3.UP, camera_y_rot)
 		if directional_vector != Vector3.ZERO:
 			last_walk_dir = directional_vector
 
@@ -90,10 +94,21 @@ func _process(_delta: float) -> void:
 	apply_central_force((walk_force - damp_force) * mass)
 	#apply_torque((walk_force - damp_force) * mass * 0.2)
 	#angular_velocity *= 0.99
-	var desired_position = position
-	camera.position += (desired_position - camera.position) * 0.25 #camera.position.lerp(position + camera_offset, delta*3.0)
+	if camera_current_breadcrumb != -1:
+		var desired_position = breadcrumbs[camera_current_breadcrumb]
+		if desired_position.distance_squared_to(position) > 16.0:
+			camera.position += (desired_position - camera.position) * 0.1 #camera.position.lerp(position + camera_offset, delta*3.0)
+	camera.look_at(position)
+	
 	#camera.rotate_y((desired_rotation - camera.rotation.y) * 0.05)
 	
 	if Input.is_action_just_pressed("dash") and last_walk_dir != Vector3.ZERO:
 		apply_central_force(last_walk_dir * 1200.0 * mass)
 		health.drain(20.0)
+
+
+func _on_breadcrumb_timer_timeout():
+	breadcrumbs.append(position)
+	if len(breadcrumbs) > 10:
+		breadcrumbs.remove_at(0)
+		camera_current_breadcrumb = clamp(camera_current_breadcrumb + 1, 0, len(breadcrumbs) - 2)

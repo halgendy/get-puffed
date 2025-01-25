@@ -143,3 +143,9 @@ script = ExtResource("4_4ft6a")
 libraries = {
 "": SubResource("AnimationLibrary_st7e5")
 }
+
+[node name="BreadcrumbTimer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[connection signal="timeout" from="BreadcrumbTimer" to="." method="_on_breadcrumb_timer_timeout"]
