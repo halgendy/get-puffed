@@ -83,3 +83,5 @@ grow_vertical = 2
 text = "Story"
 
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="Tutorial" to="." method="_on_tutorial_pressed"]
+[connection signal="pressed" from="Story" to="." method="_on_story_pressed"]
