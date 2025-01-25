@@ -2,10 +2,10 @@ extends RigidBody3D
 
 # States
 @export var can_move: bool = true
-@export var sprinting: bool = false
+@export var checkpoint: Vector3 = position
 
 # Camera Parameters
-var default_mouse_mode = Input.MOUSE_MODE_CAPTURED
+var default_mouse_mode = Input.MOUSE_MODE_HIDDEN
 var pause_mouse_mode = Input.MOUSE_MODE_VISIBLE
 var jump_trauma = 0.5
 var sprint_trauma = 0.2
@@ -27,18 +27,35 @@ var twist_input := 0.0
 var pitch_input := 0.0
 
 # Player Objects
-@onready var camera := $TwistPivot/PitchPivot/Camera
+#@onready var camera := $TwistPivot/PitchPivot/Camera
+@onready var health: Health = $Health
+@onready var ui: CanvasLayer = $UI
 
 # Character Properties
 @onready var character_height = $CollisionShape3D.shape.radius
 @onready var player_mass: float = self.mass
 
+
 # Called when the node enters the scene tree for the **first time.**
 func _ready() -> void:
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+
+func respawn():
+	position = checkpoint
+	health.restart()
+
 
 # Called every frame. (delta: float) is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
+	if health.is_dead():
+		respawn()
+	
+	var mapped_scalar = remap(health.get_percent(), 0.0, 1.0, 1.65, 5.0)
+	$CSGSphere3D.radius = mapped_scalar
+	$CollisionShape3D.shape.radius = mapped_scalar
+	ui.set_bubbles(health.get_bubble_count())
+	mass = health.get_percent() + 1
+	
 	var walk_force = Vector3.ZERO
 	if can_move:
 		# Get direction player wants to move in based on input

@@ -1,16 +1,18 @@
-[gd_scene load_steps=5 format=3 uid="uid://c4fpo65hiycjq"]
+[gd_scene load_steps=7 format=3 uid="uid://c4fpo65hiycjq"]
 
-[ext_resource type="Script" path="res://scenes/player.gd" id="1_fws5b"]
+[ext_resource type="Script" path="res://script/player.gd" id="1_fws5b"]
 [ext_resource type="Texture2D" uid="uid://cqomwl374s7xd" path="res://blowfish_1f421.png" id="1_nh55u"]
+[ext_resource type="PackedScene" uid="uid://c61ghtyrl83a7" path="res://scenes/ui.tscn" id="3_iaqio"]
+[ext_resource type="Script" path="res://script/health.gd" id="4_4ft6a"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uym41"]
 transparency = 4
 albedo_color = Color(0.623529, 1, 1, 0.533333)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_5dac5"]
-radius = 2.3
+radius = 4.0
 
-[node name="RigidBody3D" type="RigidBody3D"]
+[node name="Player" type="RigidBody3D"]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
 script = ExtResource("1_fws5b")
 
@@ -21,10 +23,15 @@ texture = ExtResource("1_nh55u")
 
 [node name="CSGSphere3D" type="CSGSphere3D" parent="."]
 use_collision = true
-radius = 2.3
+radius = 4.0
 radial_segments = 32
 rings = 16
 material = SubResource("StandardMaterial3D_uym41")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_5dac5")
+
+[node name="UI" parent="." instance=ExtResource("3_iaqio")]
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("4_4ft6a")
