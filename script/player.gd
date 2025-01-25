@@ -13,10 +13,10 @@ var walk_trauma = 0.1
 var stop_trauma = 0.5
 
 # Movement Parameters
-const walk_acceleration: float = 50 # meters / second^2
+const walk_acceleration: float = 100 # meters / second^2
 const jump_velocity: float = 4.5 # meters / second
 const walk_velocity: float = 0.5 # meters / second
-const sprint_factor: float = 2 
+const sprint_factor: float = 2
 
 # Movement Input Parameters
 var mouse_sensitivity := 0.001
@@ -28,25 +28,32 @@ var pitch_input := 0.0
 
 # Player Objects
 #@onready var camera := $TwistPivot/PitchPivot/Camera
+@export var camera: Camera3D
 @onready var health: Health = $Health
 @onready var ui: CanvasLayer = $UI
 
 # Character Properties
 @onready var character_height = $CollisionShape3D.shape.radius
 @onready var player_mass: float = self.mass
+@onready var camera_offset = camera.position - position
 
 
 # Called when the node enters the scene tree for the **first time.**
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 
+
 func respawn():
 	position = checkpoint
 	health.restart()
+	self.reset_physics_interpolation()
+	self.angular_velocity = Vector3.ZERO
+	self.linear_velocity = Vector3.ZERO
 
+var last_walk_dir := Vector3.ZERO
 
 # Called every frame. (delta: float) is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	if health.is_dead():
 		respawn()
 	
@@ -66,7 +73,8 @@ func _process(_delta: float) -> void:
 		
 		# Calculate movement direction relative to twist_pivot | normalized to fix diagonal
 		# Use the mass and acceleration to calculate force | F = ma
-		var directional_vector: Vector3 = self.global_basis * cardinal_direction.normalized()
+		var directional_vector: Vector3 = cardinal_direction.normalized()
+		last_walk_dir = directional_vector
 
 		walk_force = directional_vector * walk_acceleration
 	
@@ -75,4 +83,10 @@ func _process(_delta: float) -> void:
 	var damp_force = Vector3(linear_velocity.x, 0, linear_velocity.z) * damp_acceleration 
 	
 	# For future reference, apply_central force based on time already, so no * delta
-	apply_central_force((walk_force - damp_force) * player_mass)
+	apply_force((walk_force - damp_force), Vector3.UP * mapped_scalar * 0.7)
+	angular_velocity *= 0.99
+	camera.position = camera.position.lerp(position + camera_offset, delta)
+	
+	if Input.is_action_just_pressed("dash") and last_walk_dir != Vector3.ZERO:
+		apply_central_force(last_walk_dir * 20000.0)
+		health.drain(20.0)

@@ -4,7 +4,7 @@ extends Node
 
 const MAX_HEALTH = 100.0
 const MAX_UI_BUBBLE = 10.0
-const DRAIN_SPEED := 7.0
+const DRAIN_SPEED := 1.0
 
 var _health = 100.0
 
