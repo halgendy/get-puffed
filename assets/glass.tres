@@ -1,0 +1,16 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://c2lk21v7hvhwo"]
+
+[resource]
+resource_name = "phong1"
+transparency = 4
+cull_mode = 1
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.745098, 0.831373, 0.941176, 0.4)
+metallic = 0.36
+roughness = 0.0
+emission_enabled = true
+emission_energy_multiplier = 0.0
+rim_enabled = true
+rim = 0.15
+rim_tint = 0.76
+anisotropy = -0.15

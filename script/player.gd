@@ -28,14 +28,13 @@ var pitch_input := 0.0
 
 # Player Objects
 #@onready var camera := $TwistPivot/PitchPivot/Camera
-@export var camera: Camera3D
+@export var camera: Node3D
 @onready var health: Health = $Health
 @onready var ui: CanvasLayer = $UI
 
 # Character Properties
 @onready var character_height = $CollisionShape3D.shape.radius
 @onready var player_mass: float = self.mass
-@onready var camera_offset = camera.position - position
 
 
 # Called when the node enters the scene tree for the **first time.**
@@ -65,6 +64,7 @@ func _process(_delta: float) -> void:
 	mass = health.get_percent() + 1
 	
 	var walk_force = Vector3.ZERO
+	var desired_rotation = last_walk_dir.angle_to(Vector3.FORWARD)
 	if can_move:
 		# Get direction player wants to move in based on input
 		# For get_axis: returns -1.0 if first, +1.0 if second, 0.0 if none OR both
@@ -72,10 +72,13 @@ func _process(_delta: float) -> void:
 		cardinal_direction.x = Input.get_axis("move_left", "move_right")
 		cardinal_direction.z = Input.get_axis("move_forward", "move_back")
 		
+		
+		
 		# Calculate movement direction relative to twist_pivot | normalized to fix diagonal
 		# Use the mass and acceleration to calculate force | F = ma
 		var directional_vector: Vector3 = cardinal_direction.normalized()
-		last_walk_dir = directional_vector
+		if directional_vector != Vector3.ZERO:
+			last_walk_dir = directional_vector
 
 		walk_force = directional_vector * walk_acceleration
 	
@@ -87,8 +90,9 @@ func _process(_delta: float) -> void:
 	apply_central_force((walk_force - damp_force) * mass)
 	#apply_torque((walk_force - damp_force) * mass * 0.2)
 	#angular_velocity *= 0.99
-	var desired_position = position + camera_offset
+	var desired_position = position
 	camera.position += (desired_position - camera.position) * 0.25 #camera.position.lerp(position + camera_offset, delta*3.0)
+	#camera.rotate_y((desired_rotation - camera.rotation.y) * 0.05)
 	
 	if Input.is_action_just_pressed("dash") and last_walk_dir != Vector3.ZERO:
 		apply_central_force(last_walk_dir * 1200.0 * mass)

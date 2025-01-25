@@ -127,8 +127,8 @@ frame = 1
 [node name="CSGSphere3D" type="CSGSphere3D" parent="."]
 use_collision = true
 radius = 1.667
-radial_segments = 16
-rings = 8
+radial_segments = 24
+rings = 12
 material = SubResource("ShaderMaterial_8017p")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

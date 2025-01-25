@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://c6rh4bcwtyucl"]
 
 [ext_resource type="PackedScene" uid="uid://c4fpo65hiycjq" path="res://scenes/player.tscn" id="1_ibnp7"]
-[ext_resource type="PackedScene" uid="uid://blx6eir5f5e6j" path="res://assets/front room temp 3.fbx" id="2_j7dav"]
+[ext_resource type="PackedScene" uid="uid://dwhtqdakm8f6" path="res://assets/front room temp 4.fbx" id="2_cngej"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6pkep"]
 sky_top_color = Color(0.566669, 0.386719, 0.465748, 1)
@@ -25,21 +25,25 @@ environment = SubResource("Environment_k3fwq")
 
 [node name="Player" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("1_ibnp7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.83541, 0)
-camera = NodePath("../Camera3D")
-
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 0, 9.521, 9.819)
-current = true
-fov = 80.0
+camera = NodePath("../CameraPivot")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 transform = Transform3D(2.333, 0, 0, 0, 2.333, 0, 0, 0, 2.333, 0, 14.527, 0)
 
-[node name="front room temp 3" parent="StaticBody3D" instance=ExtResource("2_j7dav")]
+[node name="front room temp 4" parent="StaticBody3D" instance=ExtResource("2_cngej")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5.80469, 0)
 shape = SubResource("WorldBoundaryShape3D_k66s2")
+disabled = true
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.841325, 0.185146, -0.507832, 0.477128, 0.187128, 0.85868, 0.254011, -0.96473, 0.0690975, 0, 0, 0)
+visible = false
+
+[node name="CameraPivot" type="Node3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
+transform = Transform3D(1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 0, 9.521, 9.819)
+current = true
+fov = 80.0
