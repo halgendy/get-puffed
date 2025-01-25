@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://c61ghtyrl83a7"]
+[gd_scene load_steps=5 format=3 uid="uid://c61ghtyrl83a7"]
 
 [ext_resource type="Script" path="res://script/ui.gd" id="1_entb4"]
 [ext_resource type="PackedScene" uid="uid://l5704ijbft3k" path="res://modules/ui/pause_screen/pause_screen.tscn" id="1_hbkvk"]
 [ext_resource type="PackedScene" uid="uid://bthi7iwgbgtgr" path="res://scenes/bubble.tscn" id="2_nqogb"]
+[ext_resource type="PackedScene" uid="uid://cpqjwxkcmx1by" path="res://modules/ui/bubble_meter/bubble_ui.tscn" id="3_dgyoh"]
 
 [node name="UI" type="CanvasLayer"]
 script = ExtResource("1_entb4")
@@ -14,14 +15,8 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="HBoxContainer" type="BoxContainer" parent="Control"]
+[node name="BubbleUI" parent="Control" instance=ExtResource("3_dgyoh")]
 layout_mode = 1
-anchors_preset = -1
-offset_left = 7.0
-offset_top = 11.0
-offset_right = 11523.0
-offset_bottom = 241.0
-scale = Vector2(0.2, 0.2)
 
 [node name="PauseScreen" parent="." instance=ExtResource("1_hbkvk")]
 visible = false

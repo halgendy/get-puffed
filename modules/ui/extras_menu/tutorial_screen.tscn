@@ -24,9 +24,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-current_tab = 0
+current_tab = 1
 
 [node name="Story" type="TabBar" parent="TabContainer"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -35,12 +36,20 @@ layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.5
 anchor_bottom = 1.0
+offset_left = 38.0
+offset_top = 30.0
 offset_right = 1.0
+offset_bottom = -37.0
 grow_horizontal = 2
 grow_vertical = 2
+text = "On the coast of Los Porpoise, “Get Puffed!”, local dispensary stands ready for business! Unlike many others, “Get Puffed!” specializes in a product for dolphins: pufferfish. Given the particular high from the neurotoxin they excrete, the dispensary sells them in droves. But not is all as it seems. In the back, the dolphin mafia are busy scheming.
+
+As every week begins at the shop, a fresh delivery of product is shipped in, and this week Pedro is on the menu. Not wanting to be chewed on and puffed, Pedro has to make a leap of fate. In the storage room, Pedro is able to escape his tank, staying safe within a water bubble. Now, he has to act fast; that bubble won't last forever, and he won't last at all without it. 
+
+Navigate through this haven for puff heads without being caught, and before your bubble bursts!
+"
 
 [node name="Goal" type="TabBar" parent="TabContainer"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
@@ -49,24 +58,52 @@ layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.5
 anchor_bottom = 1.0
+offset_left = 31.0
+offset_top = 22.0
 offset_right = 1.0
+offset_bottom = -35.0
 grow_horizontal = 2
 grow_vertical = 2
+text = "Movement:
 
-[node name="Controls" type="TabBar" parent="TabContainer"]
+W: Forward
+S: Backward
+A: Left
+D: Right
+
+Water Collection: You will lose bubble mass as you play. There are water drops that spawn randomly in shops. These water droplets will disappear upon collection. Look wherever water would be and plan your route accordingly
+
+Win: Get out of the store without letting your bubble pop, whether that be from it not having enough mass, or from you getting startled and caught by any of the Dolphiosos!"
+
+[node name="Credits" type="TabBar" parent="TabContainer"]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="TabContainer/Controls"]
+[node name="RichTextLabel" type="RichTextLabel" parent="TabContainer/Credits"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.5
 anchor_bottom = 1.0
+offset_left = 46.0
+offset_top = 40.0
 offset_right = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "On the coast of Los Porpus"
+text = "Tree Diep - Writer, Project Manager, Pixel Artist
+Chris Smith - Writer, Project Manager, Pixel Artist
+Annabelle Sun - 3D and Pixel Artist
+Zlata Rezanova - 3D and Pixel Artist, Voice Actor
+Isaac Spool - Programmer
+Sofia Stafford - Music
+Mar Munné - Sound Design
+Hazem Algendy - Programmer, 3D Artist
+Sharyq Siddiqi - Music, Programmer, Writer
+Yilei Bai - Programmer
+
+Special Thanks to Northeastern University Game Development Club
+
+Made in Godot Engine 4"
 
 [node name="Back" type="Button" parent="."]
 layout_mode = 1
