@@ -46,4 +46,9 @@ horizontal_alignment = 1
 
 [node name="Controls label" type="Label" parent="VBoxContainer"]
 layout_mode = 2
-text = "Blah Blah Blah Blah WASD for moving"
+text = "Press Escape to Unpause
+W to move Forward
+S to move Backward
+A to move Left
+D to move Right"
+horizontal_alignment = 1
