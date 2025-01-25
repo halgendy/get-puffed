@@ -1,0 +1,32 @@
+class_name Health
+extends Node
+
+
+const MAX_HEALTH = 100.0
+const MAX_UI_BUBBLE = 10.0
+const DRAIN_SPEED := 7.0
+
+var _health = 100.0
+
+
+func get_percent():
+	return _health / MAX_HEALTH
+
+func get_bubble_count():
+	var percent = get_percent()
+	return floor(percent * MAX_UI_BUBBLE)
+
+func _process(delta):
+	_health -= delta * DRAIN_SPEED
+
+func is_dead():
+	return _health <= 0.0
+
+func drain(amount: float):
+	_health -= amount
+
+func fill(amount: float):
+	_health += amount
+
+func restart():
+	_health = MAX_HEALTH
