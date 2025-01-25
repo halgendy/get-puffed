@@ -57,7 +57,7 @@ func _process(delta: float) -> void:
 	if health.is_dead():
 		respawn()
 	
-	var mapped_scalar = remap(health.get_percent(), 0.0, 1.0, 1.65, 5.0)
+	var mapped_scalar = remap(health.get_percent(), 0.0, 1.0, 1.65/3.0, 5.0/3.0)
 	$CSGSphere3D.radius = mapped_scalar
 	$CollisionShape3D.shape.radius = mapped_scalar
 	ui.set_bubbles(health.get_bubble_count())
@@ -79,7 +79,7 @@ func _process(delta: float) -> void:
 		walk_force = directional_vector * walk_acceleration
 	
 	# Damp the player / apply net movement
-	var damp_acceleration = walk_acceleration * walk_velocity
+	var damp_acceleration = walk_acceleration * walk_velocity / 3.0
 	var damp_force = Vector3(linear_velocity.x, 0, linear_velocity.z) * damp_acceleration 
 	
 	# For future reference, apply_central force based on time already, so no * delta
