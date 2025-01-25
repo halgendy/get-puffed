@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cqomwl374s7xd"
-path.s3tc="res://.godot/imported/blowfish_1f421.png-e212b8c1c92c122ba5a6ca2a6e0170b9.s3tc.ctex"
+path.s3tc="res://.godot/imported/blowfish_1f421.png-059309dd167032a159fb931cba5d734e.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://asset/blowfish_1f421.png"
-dest_files=["res://.godot/imported/blowfish_1f421.png-e212b8c1c92c122ba5a6ca2a6e0170b9.s3tc.ctex"]
+source_file="res://assets/blowfish_1f421.png"
+dest_files=["res://.godot/imported/blowfish_1f421.png-059309dd167032a159fb931cba5d734e.s3tc.ctex"]
 
 [params]
 

@@ -1,0 +1,78 @@
+[gd_scene load_steps=3 format=3 uid="uid://baquo6ypqrd52"]
+
+[ext_resource type="Script" path="res://modules/UI/Title Screen/title_screen.gd" id="1_prugo"]
+[ext_resource type="PackedScene" uid="uid://c2ykh0ffwl31l" path="res://modules/UI/ExtrasMenu/tutorial_screen.tscn" id="2_61ucg"]
+
+[node name="TitleScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_prugo")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.247059, 0.509804, 0.737255, 1)
+
+[node name="MainElements" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainElements"]
+layout_mode = 1
+offset_right = 1152.0
+offset_bottom = 269.0
+alignment = 1
+
+[node name="Title" type="Label" parent="MainElements/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Get Puffed!!!"
+horizontal_alignment = 1
+
+[node name="StartButton" type="Button" parent="MainElements"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 482.5
+offset_top = 282.0
+offset_right = 629.5
+offset_bottom = 326.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Play"
+
+[node name="Tutorial" type="Button" parent="MainElements"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 482.5
+offset_top = 362.0
+offset_right = 629.5
+offset_bottom = 406.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Tutorial"
+
+[node name="TutorialScreen" parent="." instance=ExtResource("2_61ucg")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+
+[connection signal="pressed" from="MainElements/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="MainElements/Tutorial" to="." method="_on_tutorial_pressed"]
+[connection signal="hidden" from="TutorialScreen" to="." method="_on_tutorial_screen_hidden"]
