@@ -24,9 +24,9 @@ var walking: bool = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	speed = 3.0
-	wait_timer = 5.0
-	turn_speed = 1.0
+	speed = 30.0
+	wait_timer = 2.0
+	turn_speed = 5.0
 	
 	patrol_points = self.get_parent().find_child("PatrolPoints").get_children()
 	
@@ -100,6 +100,10 @@ func _reached_point() -> void:
 	pass
 
 func _turn_towards_next_point(delta: float) -> void:
-	var new_transform = transform.looking_at(patrol_points[next_point_index].position)
-	transform = transform.interpolate_with(new_transform, turn_speed * delta)
+	# x / z, in radians
+	var goal_angle = atan2(position.x - patrol_points[next_point_index].position.x, position.z - patrol_points[next_point_index].position.z)
+	
+	# rotation_degrees.y = lerp_angle(rotation_degrees.y, patrol_points[next_point_index].position, delta * turn_speed)
+	rotation.y = lerp_angle(rotation.y, goal_angle, turn_speed * delta)
+	# 
 	

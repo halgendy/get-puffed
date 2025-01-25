@@ -17,12 +17,12 @@ albedo_color = Color(0, 0.0117647, 1, 1)
 environment = SubResource("Environment_5bftr")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.984149, 0.177343, 0, -0.177343, 0.984149, 0.164648, 2.51413, 5.53069)
+transform = Transform3D(-1, 0, -8.74228e-08, -5.3262e-08, 0.792981, 0.609246, 6.93246e-08, 0.609246, -0.792981, 0, 55, -65)
 fov = 60.0
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.763794)
-size = Vector3(6, 0.2, 8.04614)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.70514, 0.133067, 21.162)
+size = Vector3(134.82, 0.2, 144.509)
 material = SubResource("StandardMaterial3D_7getn")
 
 [node name="DolphinAndPaths" type="Node3D" parent="."]
@@ -32,16 +32,19 @@ material = SubResource("StandardMaterial3D_7getn")
 [node name="PatrolPoints" type="Node3D" parent="DolphinAndPaths/Path1"]
 
 [node name="Point1" type="Marker3D" parent="DolphinAndPaths/Path1/PatrolPoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, -40)
 
 [node name="Point2" type="Marker3D" parent="DolphinAndPaths/Path1/PatrolPoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, -2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 40)
 
 [node name="Point3" type="Marker3D" parent="DolphinAndPaths/Path1/PatrolPoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.2, -3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40, 0.2, 55)
+
+[node name="Point4" type="Marker3D" parent="DolphinAndPaths/Path1/PatrolPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 0.2, 20)
 
 [node name="CharacterBody3D" parent="DolphinAndPaths/Path1" instance=ExtResource("1_120fo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 2)
+transform = Transform3D(-20, 0, -1.74846e-06, 0, 20, 0, 1.74846e-06, 0, -20, 0, 2, 2)
 
 [node name="Timer" type="Timer" parent="DolphinAndPaths/Path1/CharacterBody3D"]
 wait_time = 5.0
