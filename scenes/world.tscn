@@ -19,7 +19,7 @@ albedo_color = Color(1, 0.670588, 1, 1)
 environment = SubResource("Environment_k3fwq")
 
 [node name="Player" parent="." instance=ExtResource("1_ibnp7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.14155, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.450317, -3.51885, -0.515137)

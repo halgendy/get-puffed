@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://c61ghtyrl83a7"]
+[gd_scene load_steps=4 format=3 uid="uid://c61ghtyrl83a7"]
 
 [ext_resource type="Script" path="res://script/ui.gd" id="1_entb4"]
+[ext_resource type="PackedScene" uid="uid://l5704ijbft3k" path="res://modules/UI/PauseScreen/pause_screen.tscn" id="1_hbkvk"]
 [ext_resource type="PackedScene" uid="uid://bthi7iwgbgtgr" path="res://scenes/bubble.tscn" id="2_nqogb"]
 
 [node name="UI" type="CanvasLayer"]
@@ -19,3 +20,6 @@ anchors_preset = -1
 offset_right = 2596.0
 offset_bottom = 256.0
 scale = Vector2(0.2, 0.2)
+
+[node name="PauseScreen" parent="." instance=ExtResource("1_hbkvk")]
+visible = false
