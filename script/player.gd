@@ -53,13 +53,14 @@ func respawn():
 var last_walk_dir := Vector3.ZERO
 
 # Called every frame. (delta: float) is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	#if health.is_dead():
-		#respawn()
+func _process(_delta: float) -> void:
+	if health.is_dead():
+		respawn()
 	
 	var mapped_scalar = remap(health.get_percent(), 0.0, 1.0, 1.65/3.0, 5.0/3.0)
 	$CSGSphere3D.radius = mapped_scalar
 	$CollisionShape3D.shape.radius = mapped_scalar
+	ui.kill_bubbles()
 	ui.set_bubbles(health.get_bubble_count())
 	mass = health.get_percent() + 1
 	
@@ -86,8 +87,9 @@ func _process(delta: float) -> void:
 	apply_central_force((walk_force - damp_force) * mass)
 	#apply_torque((walk_force - damp_force) * mass * 0.2)
 	#angular_velocity *= 0.99
-	camera.position = camera.position.lerp(position + camera_offset, delta)
+	var desired_position = position + camera_offset
+	camera.position += (desired_position - camera.position) * 0.25 #camera.position.lerp(position + camera_offset, delta*3.0)
 	
-	#if Input.is_action_just_pressed("dash") and last_walk_dir != Vector3.ZERO:
-		#apply_central_force(last_walk_dir * 20000.0 * mass)
-		#health.drain(20.0)
+	if Input.is_action_just_pressed("dash") and last_walk_dir != Vector3.ZERO:
+		apply_central_force(last_walk_dir * 1200.0 * mass)
+		health.drain(20.0)

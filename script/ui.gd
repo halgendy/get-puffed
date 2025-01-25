@@ -8,6 +8,10 @@ extends CanvasLayer
 func _ready():
 	set_bubbles(10)
 
+func kill_bubbles():
+	for bubble in bubble_container.get_children():
+		bubble.queue_free()
+
 func set_bubbles(amount: int):
 	var current_bubble_count = len(bubble_container.get_children().filter(func(x): return not x.drained))
 	var delta_bubbles = amount - current_bubble_count

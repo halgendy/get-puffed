@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://c4fpo65hiycjq"]
+[gd_scene load_steps=16 format=3 uid="uid://c4fpo65hiycjq"]
 
 [ext_resource type="Script" path="res://script/player.gd" id="1_fws5b"]
 [ext_resource type="Texture2D" uid="uid://p3u7bsntq0u" path="res://assets/PEDROPUFFERFRONT.png" id="2_pgr8j"]
@@ -8,15 +8,67 @@
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_c7oot"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uym41"]
-transparency = 4
-albedo_color = Color(0.623529, 1, 1, 0.533333)
+[sub_resource type="Shader" id="Shader_tkj4r"]
+code = "shader_type spatial;
+
+uniform sampler2D noise_tex;
+uniform vec4 bubble_color : source_color;
+uniform float height_multiplier = 0.5;
+uniform float noise_sample_size = 0.1;
+uniform float animation_speed = 0.1;
+
+varying float height;
+
+float fresnel(vec3 normal, mat4 camera_matrix){
+	vec3 view_direction_world = (camera_matrix * vec4(0.0,0.0,1.0,0.0)).xyz;
+	vec3 normal_world = (camera_matrix * vec4(normal,0.0)).xyz;
+	
+	float d = dot(view_direction_world, normal_world);
+	d = abs(d);
+	d = clamp(d, 0.0, 1.0);
+	
+	return 1.0 - d;
+}
+
+void vertex(){
+	height = texture(noise_tex, VERTEX.xz * noise_sample_size + vec2(TIME) * animation_speed).r;
+	VERTEX += NORMAL * height * height_multiplier;
+}
+
+void fragment(){
+	ROUGHNESS = mix(0.05, 0.1, 1.0 - height);
+	SPECULAR = height;
+	ALPHA = fresnel(NORMAL, MODEL_MATRIX);
+	ALBEDO = bubble_color.rgb;
+}"
+
+[sub_resource type="Gradient" id="Gradient_lov8m"]
+offsets = PackedFloat32Array(0.120408, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_xvfmg"]
+frequency = 0.027
+fractal_type = 0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_jlgyw"]
+seamless = true
+seamless_blend_skirt = 0.123
+color_ramp = SubResource("Gradient_lov8m")
+noise = SubResource("FastNoiseLite_xvfmg")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8017p"]
+render_priority = 0
+shader = SubResource("Shader_tkj4r")
+shader_parameter/bubble_color = Color(0.645214, 0.762612, 1, 1)
+shader_parameter/height_multiplier = 0.15
+shader_parameter/noise_sample_size = 0.1
+shader_parameter/animation_speed = 0.07
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_jlgyw")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_5dac5"]
 radius = 1.667
 
-[sub_resource type="Animation" id="Animation_1laxo"]
-resource_name = "walk"
+[sub_resource type="Animation" id="Animation_v4lky"]
+length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -30,8 +82,8 @@ tracks/0/keys = {
 "values": [1]
 }
 
-[sub_resource type="Animation" id="Animation_v4lky"]
-length = 0.001
+[sub_resource type="Animation" id="Animation_1laxo"]
+resource_name = "walk"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -75,9 +127,9 @@ frame = 1
 [node name="CSGSphere3D" type="CSGSphere3D" parent="."]
 use_collision = true
 radius = 1.667
-radial_segments = 8
-rings = 4
-material = SubResource("StandardMaterial3D_uym41")
+radial_segments = 16
+rings = 8
+material = SubResource("ShaderMaterial_8017p")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_5dac5")
