@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://c4fpo65hiycjq"]
 
 [ext_resource type="Script" path="res://script/player.gd" id="1_fws5b"]
-[ext_resource type="Texture2D" uid="uid://cqomwl374s7xd" path="res://assets/blowfish_1f421.png" id="1_nh55u"]
-[ext_resource type="PackedScene" uid="uid://c61ghtyrl83a7" path="res://scenes/ui.tscn" id="3_iaqio"]
+[ext_resource type="Texture2D" uid="uid://cqomwl374s7xd" path="res://asset/blowfish_1f421.png" id="1_nh55u"]
+[ext_resource type="PackedScene" uid="uid://c61ghtyrl83a7" path="res://scene/ui.tscn" id="3_iaqio"]
 [ext_resource type="Script" path="res://script/health.gd" id="4_4ft6a"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uym41"]

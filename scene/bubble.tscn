@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bthi7iwgbgtgr"]
 
-[ext_resource type="Texture2D" uid="uid://cktg470ah87b3" path="res://assets/638079266840210955.png" id="1_d3so6"]
+[ext_resource type="Texture2D" uid="uid://cktg470ah87b3" path="res://asset/638079266840210955.png" id="1_d3so6"]
 
 [node name="Control" type="TextureRect"]
 offset_right = 256.0
