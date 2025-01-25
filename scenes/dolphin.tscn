@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://cq6i7byh4r1ry"]
+[gd_scene load_steps=5 format=3 uid="uid://cq6i7byh4r1ry"]
 
-[ext_resource type="Texture2D" uid="uid://bifaisrxo364s" path="res://assets/dolphin_test.png" id="1_65opg"]
 [ext_resource type="Script" path="res://scenes/dolphin_movement.gd" id="1_mapua"]
+[ext_resource type="Texture2D" uid="uid://b063cgfw8u8gy" path="res://assets/SCOOTERFRONT.png" id="2_rjt3w"]
+[ext_resource type="Texture2D" uid="uid://3r3eub063a0c" path="res://assets/SCOOTERBACK.png" id="3_od10s"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_b8xsm"]
 size = Vector3(1.28491, 0.94043, 0.228546)
@@ -14,5 +15,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("BoxShape3D_b8xsm")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(0.105, 0, 0, 0, 0.105, 0, 0, 0, 0.105, 0, 0.5, 0)
-texture = ExtResource("1_65opg")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+texture = ExtResource("2_rjt3w")
+
+[node name="Sprite3D2" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.000428349)
+texture = ExtResource("3_od10s")
