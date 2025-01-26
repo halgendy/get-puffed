@@ -31,10 +31,13 @@ var spotlight_alert_color: Color = Color(255, 0, 0) # pure red
 
 # 0 = no sensitivity ... 1 = instantly changes color
 # affects how fast the spotlight changes from original_color to alert_color
-var spotlight_sensitivity: float = 0.3
+@export var spotlight_sensitivity: float = 0.3
 
 # float value with range [0, 255] determining how red the spotlight can get before dolphin starts chasing
 @export var chase_activation_threshold: float = 50.0
+
+# float value with range [0, 255] determining at what point the dolphin starts to drain Pedro's HP
+@export var hp_drain_threshold: float = 150.0
 
 # movement speed of the dolphin when patrolling
 @export var patrol_speed: float
@@ -51,22 +54,23 @@ var spotlight_sensitivity: float = 0.3
 # how long the dolphin will wait (seconds) at a patrol point before moving again
 @export var wait_timer_patrol: float
 
+@export var speech_audio: AudioStream
+@export var dolphin_music: AudioStream
+
 # bool for ensuring the timer only starts one instance
 var wait_timer_on: bool
 
 # The NavigationAgent3D that handles navigating
 @onready var nav: NavigationAgent3D = $NavigationAgent3D
+@onready var speech_audio_player: AudioStreamPlayer3D = $SpeechAudio
+@onready var music_audio_player: AudioStreamPlayer3D = $MusicAudio
+@onready var speech_timer: Timer = $SpeechAudioPlayer/SpeechTimer
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	patrol_speed = 10.0
-	wait_timer_patrol = 5.0
-	turn_speed_patrol = 5.0
-	wait_timer_on = false
-	
-	turn_speed_chase = 0.5
-	chase_speed = 5.0
-	
+	#speech_audio_player.stream = speech_audio
+	#music_audio_player.stream = dolphin_music
+	#speech_timer.wait_time = randi_range(20, 30)
 	patrol_points = self.get_parent().find_child("PatrolPoints").get_children()
 	spotlight_detector = find_child("SpotlightCollision")
 	spotlight_object = find_child("SpotLight3D")
@@ -83,7 +87,8 @@ func _ready() -> void:
 	next_point_index = 1
 	
 	current_state = MODE_WALKING
-	
+	#music_audio_player.play()
+	#speech_timer.start()
 	pass # Replace with function body.
 
 
@@ -174,6 +179,9 @@ func _determine_state(delta) -> void:
 			#print("#########other wait")
 			#return
 	
+	if spotlight_object.light_color.r > 150:
+		player_node.health.drain(delta * 10)
+	
 	if spotlight_object.light_color.r > chase_activation_threshold:
 		current_state = MODE_CHASING
 		print("====CHASE TIME")
@@ -225,3 +233,9 @@ func _wait(delta: float) -> void:
 	#if body is Player:
 		#spotlight_object.light_color = spotlight_object.light_color.lerp(spotlight_original_color, spotlight_sensitivity)	
 	#pass # Replace with function body.
+
+
+func _on_speech_timer_timeout() -> void:
+	speech_audio_player.play()
+	speech_timer.wait_time = randi_range(20, 30)
+	speech_timer.start()

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bhf3bx5o0ee5p"
+path="res://.godot/imported/get puffed rough.mp3-03d3e2f00b86717420c301ddcf7b535c.mp3str"
+
+[deps]
+
+source_file="res://music/get puffed rough.mp3"
+dest_files=["res://.godot/imported/get puffed rough.mp3-03d3e2f00b86717420c301ddcf7b535c.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

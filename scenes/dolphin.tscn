@@ -1,7 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://cq6i7byh4r1ry"]
+[gd_scene load_steps=10 format=3 uid="uid://cq6i7byh4r1ry"]
 
 [ext_resource type="Script" path="res://scenes/dolphin_movement.gd" id="1_mapua"]
+[ext_resource type="AudioStream" uid="uid://b16x760lqdvmx" path="res://sfx/ScooterSpeech.wav" id="2_dba2g"]
 [ext_resource type="Texture2D" uid="uid://b063cgfw8u8gy" path="res://assets/SCOOTERFRONT.png" id="2_rjt3w"]
+[ext_resource type="AudioStream" uid="uid://dfxb2kfk0dyrw" path="res://music/get puffed guitar2.wav" id="3_53ced"]
 [ext_resource type="Texture2D" uid="uid://3r3eub063a0c" path="res://assets/SCOOTERBACK.png" id="3_od10s"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_b8xsm"]
@@ -10,8 +12,19 @@ size = Vector3(0.607116, 0.798523, 0.0605488)
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_s5acy"]
 height = 0.308026
 
-[node name="CharacterBody3D" type="CharacterBody3D"]
+[sub_resource type="AudioStream" id="AudioStream_gmgpo"]
+
+[sub_resource type="AudioStream" id="AudioStream_h4hyd"]
+
+[node name="Dolphin" type="CharacterBody3D"]
 script = ExtResource("1_mapua")
+patrol_speed = 10.0
+chase_speed = 5.0
+turn_speed_patrol = 5.0
+turn_speed_chase = 5.0
+wait_timer_patrol = 5.0
+speech_audio = ExtResource("2_dba2g")
+dolphin_music = ExtResource("3_53ced")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0201724, 0.470734, 0.00732707)
@@ -42,3 +55,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
 shape = SubResource("CylinderShape3D_s5acy")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="SpeechAudioPlayer" type="AudioStreamPlayer3D" parent="."]
+stream = SubResource("AudioStream_gmgpo")
+
+[node name="SpeechTimer" type="Timer" parent="SpeechAudioPlayer"]
+
+[node name="MusicAudioPlayer" type="AudioStreamPlayer3D" parent="."]
+stream = SubResource("AudioStream_h4hyd")
+
+[connection signal="timeout" from="SpeechAudioPlayer/SpeechTimer" to="." method="_on_speech_timer_timeout"]

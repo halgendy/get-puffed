@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://djcapimlh0s0n"
+path="res://.godot/imported/get puffed sax.wav-452b1b1984f662c7674739d9bf84c200.sample"
+
+[deps]
+
+source_file="res://music/get puffed sax.wav"
+dest_files=["res://.godot/imported/get puffed sax.wav-452b1b1984f662c7674739d9bf84c200.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=2
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0
