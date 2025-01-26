@@ -22,7 +22,7 @@ const walk_acceleration: float = 100 # meters / second^2
 const jump_velocity: float = 4.5 # meters / second
 const walk_velocity: float = 0.5 # meters / second
 const sprint_factor: float = 2
-
+const WATER_BUBBLE_BURST = preload("res://sfx/WaterBubbleBurst.wav")
 # Movement Input Parameters
 var mouse_sensitivity := 0.001
 var min_pitch := -60
@@ -60,6 +60,7 @@ var last_walk_dir := Vector3.ZERO
 # Called every frame. (delta: float) is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if health.is_dead():
+		AudioManager.play_audio(WATER_BUBBLE_BURST)
 		respawn()
 	
 	var mapped_scalar = remap(health.get_percent(), 0.0, 1.0, 1.65/3.0, 5.0/3.0)
