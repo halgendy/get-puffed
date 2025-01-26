@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://pa54c82kyalj"]
+
+[ext_resource type="Script" path="res://modules/health_pickup/water_droplet_manager.gd" id="1_1e0jr"]
+[ext_resource type="PackedScene" uid="uid://bxhj0d0crobqi" path="res://modules/health_pickup/health_pickup.tscn" id="2_4x1pq"]
+
+[node name="WaterDropletManager" type="Node3D"]
+script = ExtResource("1_1e0jr")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 20.0
+
+[node name="HealthPickup" parent="." instance=ExtResource("2_4x1pq")]
+
+[connection signal="timeout" from="Timer" to="." method="make_droplet"]
+[connection signal="picked_up" from="HealthPickup" to="." method="droplet_picked"]

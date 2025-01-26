@@ -13,10 +13,10 @@ func _ready():
 	
 func kill_bubbles():
 	bubble_ui.bubbles -= 1
-	var instance = BUBBLE.instantiate()
-	bubble_ui.bubblesRect.add_child(instance)
-	instance.position = Vector2((bubble_ui.bubbles + 1) * 24, 0)
-	instance.drain()
+	#var instance = BUBBLE.instantiate()
+	#bubble_ui.bubblesRect.add_child(instance)
+	#instance.position = Vector2((bubble_ui.bubbles + 1) * 24, 0)
+	#instance.drain()
 
 func set_bubbles(amount: int):
 	bubble_ui.bubbles = amount

@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://script/world.gd" id="1_48q1r"]
 [ext_resource type="PackedScene" uid="uid://c4fpo65hiycjq" path="res://scenes/player.tscn" id="1_ibnp7"]
-[ext_resource type="PackedScene" uid="uid://bxhj0d0crobqi" path="res://modules/health_pickup/health_pickup.tscn" id="2_c2dh3"]
 [ext_resource type="PackedScene" uid="uid://cm8t1dil7oydr" path="res://assets/frontroom/front room with collisions.fbx" id="3_i6gwy"]
+[ext_resource type="PackedScene" uid="uid://pa54c82kyalj" path="res://modules/health_pickup/water_droplet_manager.tscn" id="4_333h4"]
 [ext_resource type="PackedScene" uid="uid://hbjs405kkt3v" path="res://assets/backrooms/WholeScene (5).fbx" id="5_n0cl2"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6pkep"]
@@ -46,8 +46,8 @@ fov = 80.0
 
 [node name="HealthPickups" type="Node3D" parent="SceneElements"]
 
-[node name="HealthPickup" parent="SceneElements/HealthPickups" instance=ExtResource("2_c2dh3")]
-transform = Transform3D(16, 0, 0, 0, -15.9765, -0.867771, 0, 0.867771, -15.9765, 2.62679, -19.0201, -13.2678)
+[node name="WaterDropletManager" parent="SceneElements/HealthPickups" instance=ExtResource("4_333h4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -102.154, -19.1215, 27.6908)
 
 [node name="front room with collisions" parent="." instance=ExtResource("3_i6gwy")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
@@ -74,5 +74,29 @@ transform = Transform3D(1.39, 0, 0, 0, 1.39, 0, 0, 0, 1.39, -91.25, -11.813, 11.
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -104.163, -22.3325, 11.5099)
 shape = SubResource("BoxShape3D_xouut")
+
+[node name="WaterDropletManager" parent="." instance=ExtResource("4_333h4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -58.9218, -18.9522, 16.9974)
+
+[node name="WaterDropletManager2" parent="." instance=ExtResource("4_333h4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.3672, -18.8683, 29.758)
+
+[node name="WaterDropletManager3" parent="." instance=ExtResource("4_333h4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -57.2404, -18.857, -25.2145)
+
+[node name="WaterDropletManager4" parent="." instance=ExtResource("4_333h4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.7499, -19.0129, -11.2665)
+
+[node name="WaterDropletManager5" parent="." instance=ExtResource("4_333h4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.99163, -19.0401, 16.7421)
+
+[node name="WaterDropletManager6" parent="." instance=ExtResource("4_333h4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.8064, -19.0692, -23.6812)
+
+[node name="WaterDropletManager7" parent="." instance=ExtResource("4_333h4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39.1927, -18.9763, 23.6568)
+
+[node name="WaterDropletManager8" parent="." instance=ExtResource("4_333h4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -122.298, -19.1195, 24.9219)
 
 [connection signal="body_entered" from="WinZone" to="." method="_on_area_3d_body_entered"]
