@@ -105,17 +105,17 @@ func _process(_delta: float) -> void:
 	# 
 	var desired_position = _active_crumb()
 	if desired_position:
-		camera.position += (desired_position - camera.position) * 0.1 #camera.position.lerp(position + camera_offset, delta*3.0)
+		camera.position += (desired_position - camera.position) * 0.01 #camera.position.lerp(position + camera_offset, delta*3.0)
 		camera.look_at(position)
 
 func _active_crumb():
 	for crumb in breadcrumbs:
-		if position.distance_to(crumb) < 8 and position.distance_to(crumb) > 3:
+		if position.distance_to(crumb) < 10 and position.distance_to(crumb) > 5:
 			return crumb
 
 func _on_breadcrumb_timer_timeout():
-	if position.distance_to(breadcrumbs[-1]) > 3:
-		if len(breadcrumbs) > 10:
+	if position.distance_to(breadcrumbs[-1]) > 5:
+		if len(breadcrumbs) > 100:
 			breadcrumbs.remove_at(0)
 		
 		breadcrumbs.append(position)
