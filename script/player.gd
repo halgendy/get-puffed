@@ -12,7 +12,7 @@ var sprint_trauma = 0.2
 var walk_trauma = 0.1
 var stop_trauma = 0.5
 var breadcrumbs: Array = range(10).map(func(x): return position)
-var camera_current_breadcrumb = -1
+var camera_current_breadcrumb = position
 
 # Movement Parameters
 const walk_acceleration: float = 100 # meters / second^2
@@ -66,7 +66,6 @@ func _process(_delta: float) -> void:
 	mass = health.get_percent() + 1
 	
 	var walk_force = Vector3.ZERO
-	var desired_rotation = last_walk_dir.angle_to(Vector3.FORWARD)
 	if can_move:
 		# Get direction player wants to move in based on input
 		# For get_axis: returns -1.0 if first, +1.0 if second, 0.0 if none OR both
@@ -94,21 +93,29 @@ func _process(_delta: float) -> void:
 	apply_central_force((walk_force - damp_force) * mass)
 	#apply_torque((walk_force - damp_force) * mass * 0.2)
 	#angular_velocity *= 0.99
-	if camera_current_breadcrumb != -1:
-		var desired_position = breadcrumbs[camera_current_breadcrumb]
-		if desired_position.distance_squared_to(position) > 16.0:
-			camera.position += (desired_position - camera.position) * 0.1 #camera.position.lerp(position + camera_offset, delta*3.0)
-	camera.look_at(position)
+
 	
 	#camera.rotate_y((desired_rotation - camera.rotation.y) * 0.05)
 	
 	if Input.is_action_just_pressed("dash") and last_walk_dir != Vector3.ZERO:
 		apply_central_force(last_walk_dir * 1200.0 * mass)
 		health.drain(20.0)
+		
+	
+	# 
+	var desired_position = _active_crumb()
+	if desired_position:
+		camera.position += (desired_position - camera.position) * 0.1 #camera.position.lerp(position + camera_offset, delta*3.0)
+		camera.look_at(position)
 
+func _active_crumb():
+	for crumb in breadcrumbs:
+		if position.distance_to(crumb) < 8 and position.distance_to(crumb) > 3:
+			return crumb
 
 func _on_breadcrumb_timer_timeout():
-	breadcrumbs.append(position)
-	if len(breadcrumbs) > 10:
-		breadcrumbs.remove_at(0)
-		camera_current_breadcrumb = clamp(camera_current_breadcrumb + 1, 0, len(breadcrumbs) - 2)
+	if position.distance_to(breadcrumbs[-1]) > 3:
+		if len(breadcrumbs) > 10:
+			breadcrumbs.remove_at(0)
+		
+		breadcrumbs.append(position)
