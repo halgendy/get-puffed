@@ -101,6 +101,10 @@ func _process(delta: float) -> void:
 
 func _physics_process(delta: float) -> void:
 	
+	# force x and z axis rotation lock
+	rotation.x = 0
+	rotation.z = 0
+	
 	_determine_state(delta)
 	
 	print("LOOP_START state = ", current_state)

@@ -17,6 +17,8 @@ height = 0.308026
 [sub_resource type="AudioStream" id="AudioStream_h4hyd"]
 
 [node name="Dolphin" type="CharacterBody3D"]
+axis_lock_angular_x = true
+axis_lock_angular_z = true
 script = ExtResource("1_mapua")
 patrol_speed = 10.0
 chase_speed = 5.0
