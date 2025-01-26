@@ -7308,14 +7308,16 @@ skeleton = NodePath("")
 [node name="pointLight1" type="OmniLight3D" parent="Backroom"]
 transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, -17.4836, 4.92265, 0)
 light_color = Color(0.457123, 0.515, 0.264195, 1)
+light_energy = 25.0
 shadow_enabled = true
-omni_range = 4096.0
+omni_range = 128.0
 
 [node name="pointLight2" type="OmniLight3D" parent="Backroom"]
 transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 9.65366, 4.92265, 0)
 light_color = Color(0.457123, 0.515, 0.264195, 1)
+light_energy = 25.0
 shadow_enabled = true
-omni_range = 4096.0
+omni_range = 128.0
 
 [node name="Shelf_Blocking" type="Node3D" parent="Backroom"]
 transform = Transform3D(0.00389695, -0.27049, -0.962715, -0.999896, -0.014406, 2.98023e-08, -0.0138688, 0.962615, -0.270518, -4.36453, -18.6063, -4.84081)

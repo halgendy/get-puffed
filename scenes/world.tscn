@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://c6rh4bcwtyucl"]
+[gd_scene load_steps=11 format=3 uid="uid://c6rh4bcwtyucl"]
 
 [ext_resource type="Script" path="res://script/world.gd" id="1_48q1r"]
 [ext_resource type="PackedScene" uid="uid://c4fpo65hiycjq" path="res://scenes/player.tscn" id="1_ibnp7"]
@@ -10,12 +10,11 @@
 [ext_resource type="PackedScene" uid="uid://kl0i1ra7m7g0" path="res://scenes/back_room_level.tscn" id="9_sbd1e"]
 
 [sub_resource type="Environment" id="Environment_8nuko"]
+background_mode = 2
+ambient_light_color = Color(0.325441, 0.325441, 0.325441, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_uhbbt"]
-size = Vector3(20, 37.25, 20.259)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_xouut"]
-size = Vector3(67.7075, 3, 47.6117)
+size = Vector3(8.02197, 30.3618, 18.2777)
 
 [node name="World" type="Node3D"]
 script = ExtResource("1_48q1r")
@@ -65,7 +64,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -122.298, -19.1195, 24.9219)
 environment = SubResource("Environment_8nuko")
 
 [node name="WinText" type="Label3D" parent="."]
-transform = Transform3D(-4.37114e-08, 1, 4.37114e-08, 0, -4.37114e-08, 1, 1, 4.37114e-08, 1.91069e-15, 41.0339, -20.434, 0.917559)
+transform = Transform3D(-4.37114e-08, 1, 4.37114e-08, 0, -4.37114e-08, 1, 1, 4.37114e-08, 1.91069e-15, 55.202, -27.1165, 0.917559)
 modulate = Color(0, 0, 0, 1)
 text = "The Great Outdoors
 (no pufferfish allowed)"
@@ -73,16 +72,11 @@ font_size = 100
 outline_size = 0
 
 [node name="WinZone" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 51.762, -19.6819, 0.594536)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="WinZone"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 52.6262, -7.03307, -0.627697)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.98901, 7.35324, -0.576228)
 shape = SubResource("BoxShape3D_uhbbt")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -104.163, -22.3325, 11.5099)
-shape = SubResource("BoxShape3D_xouut")
 
 [node name="SoundEffects" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -112.145, -11.6533, 16.0919)
@@ -111,46 +105,6 @@ transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0)
 
 [node name="FrontRoomLevel" parent="Level" instance=ExtResource("8_oau76")]
 
-[node name="bougie_room__1__spotLight2" type="SpotLight3D" parent="Level"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -9.98048, 1.49501, -4.99041)
-shadow_enabled = true
-spot_range = 256.0
-spot_angle = 85.0
-spot_angle_attenuation = 0.14
-
-[node name="bougie_room__1__spotLight3" type="SpotLight3D" parent="Level"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -1.51003, 1.49501, -4.99041)
-shadow_enabled = true
-spot_range = 256.0
-spot_angle = 85.0
-spot_angle_attenuation = 0.14
-
-[node name="bougie_room__1__spotLight4" type="SpotLight3D" parent="Level"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 6.30972, 1.49501, -4.99041)
-shadow_enabled = true
-spot_range = 256.0
-spot_angle = 85.0
-spot_angle_attenuation = 0.14
-
-[node name="bougie_room__1__spotLight5" type="SpotLight3D" parent="Level"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 6.30972, 1.49501, 5.04256)
-shadow_enabled = true
-spot_range = 256.0
-spot_angle = 85.0
-spot_angle_attenuation = 0.14
-
-[node name="bougie_room__1__spotLight6" type="SpotLight3D" parent="Level"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -1.51003, 1.49501, 5.04256)
-shadow_enabled = true
-spot_range = 256.0
-spot_angle = 85.0
-spot_angle_attenuation = 0.14
-
-[node name="bougie_room__1__spotLight7" type="SpotLight3D" parent="Level"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -9.98048, 1.49501, 5.04256)
-shadow_enabled = true
-spot_range = 256.0
-spot_angle = 85.0
-spot_angle_attenuation = 0.14
-
 [connection signal="body_entered" from="WinZone" to="." method="_on_area_3d_body_entered"]
+
+[editable path="Level/FrontRoomLevel"]
