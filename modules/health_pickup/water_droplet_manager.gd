@@ -10,10 +10,6 @@ var spawn_position: Vector3
 func _ready() -> void:
 	spawn_position = starting_pickup.position
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
 func make_droplet():
 	print_debug("Droplet Made")
 	var instance = HEALTH_PICKUP.instantiate()
