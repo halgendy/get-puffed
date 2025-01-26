@@ -60,5 +60,6 @@ text = "Press Escape to Unpause
 W to move Forward
 S to move Backward
 A to move Left
-D to move Right"
+D to move Right
+Space to Dash"
 horizontal_alignment = 1
