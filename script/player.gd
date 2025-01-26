@@ -12,7 +12,7 @@ var jump_trauma = 0.5
 var sprint_trauma = 0.2
 var walk_trauma = 0.1
 var stop_trauma = 0.5
-const NUM_BREADCRUMBS = 20
+const NUM_BREADCRUMBS = 50
 var breadcrumbs: Array = range(NUM_BREADCRUMBS).map(func(_x): return position)
 var camera_current_breadcrumb = position
 
@@ -109,18 +109,31 @@ func _process(delta: float) -> void:
 		health.drain(20.0)
 	
 	var desired_position = _active_crumb()
-	if desired_position:
-		camera.position += (desired_position - camera.position) * 2.0 * delta #camera.position.lerp(position + camera_offset, delta*3.0)
-		camera.look_at(position)
+	if not desired_position: desired_position = global_position
+	var stiffness = 100.0  # Controls how quickly it moves to the target
+	var damping = 0.8     # Reduces oscillation (must be < 1 for stability)
+	var velocity = Vector3.ZERO
 
+	velocity += (desired_position - camera.global_position) * stiffness * delta
+	velocity *= damping
+	camera.global_position += velocity * delta
+	camera.look_at(global_position)
+
+
+# change to get closest
 func _active_crumb():
+	var closest_crumb = null
+	var closest_distance = INF
 	for crumb in breadcrumbs:
-		if position.distance_to(crumb) < 8 and position.distance_to(crumb) > 5:
-			return crumb
+		var distance = global_position.distance_to(crumb)
+		if distance >= 6 and distance < closest_distance:
+			closest_crumb = crumb
+			closest_distance = distance
+	return closest_crumb
 
 func _on_breadcrumb_timer_timeout():
-	if position.distance_to(breadcrumbs[-1]) > 5:
+	if global_position.distance_to(breadcrumbs[-1]) > 2:
 		if len(breadcrumbs) > NUM_BREADCRUMBS:
 			breadcrumbs.remove_at(0)
 		
-		breadcrumbs.append(position)
+		breadcrumbs.append(global_position)
