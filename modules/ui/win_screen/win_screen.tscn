@@ -1,0 +1,72 @@
+[gd_scene load_steps=4 format=3 uid="uid://dwxgg1601r1oh"]
+
+[ext_resource type="Theme" uid="uid://bqh5tynlufgga" path="res://default_theme.tres" id="1_7ew6t"]
+[ext_resource type="Texture2D" uid="uid://b8tivstafl4ot" path="res://assets/BACKBUTTON.png" id="2_f2j8v"]
+[ext_resource type="Script" path="res://modules/ui/win_screen/win_screen.gd" id="2_rnd53"]
+
+[node name="WinScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_7ew6t")
+script = ExtResource("2_rnd53")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.126511, 0.441351, 0.565188, 1)
+
+[node name="Header" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.168
+anchor_right = 0.5
+anchor_bottom = 0.168
+offset_left = -135.5
+offset_top = -43.864
+offset_right = 135.5
+offset_bottom = 44.136
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 64
+text = "You Escaped!"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.502
+anchor_top = 0.251
+anchor_right = 0.502
+anchor_bottom = 0.251
+offset_left = -161.304
+offset_top = -11.648
+offset_right = 161.696
+offset_bottom = 11.352
+grow_horizontal = 2
+grow_vertical = 2
+text = "Thank you so much for playing our game! "
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.685
+anchor_right = 0.5
+anchor_bottom = 0.685
+offset_left = -72.0
+offset_top = -39.88
+offset_bottom = 0.119965
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+icon = ExtResource("2_f2j8v")
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
