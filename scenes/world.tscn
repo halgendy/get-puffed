@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://c6rh4bcwtyucl"]
+[gd_scene load_steps=8 format=3 uid="uid://c6rh4bcwtyucl"]
 
 [ext_resource type="PackedScene" uid="uid://c4fpo65hiycjq" path="res://scenes/player.tscn" id="1_ibnp7"]
 [ext_resource type="PackedScene" uid="uid://dwhtqdakm8f6" path="res://assets/front room temp 4.fbx" id="2_cngej"]
+[ext_resource type="PackedScene" uid="uid://bxhj0d0crobqi" path="res://modules/health_pickup/health_pickup.tscn" id="3_4o2oy"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6pkep"]
 sky_top_color = Color(0.566669, 0.386719, 0.465748, 1)
@@ -47,3 +48,6 @@ visible = false
 transform = Transform3D(1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 0, 9.521, 9.819)
 current = true
 fov = 80.0
+
+[node name="HealthPickup" parent="." instance=ExtResource("3_4o2oy")]
+transform = Transform3D(16, 0, 0, 0, 16, 0, 0, 0, 16, 0, 0, -10.0848)

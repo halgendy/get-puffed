@@ -27,6 +27,7 @@ func drain(amount: float):
 
 func fill(amount: float):
 	_health += amount
+	_health = clamp(_health, 0, 100)
 
 func restart():
 	_health = MAX_HEALTH
