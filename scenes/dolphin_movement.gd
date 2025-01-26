@@ -11,12 +11,15 @@ var next_point_index
 var is_returning: bool = false
 
 # simple bool to check if dolphin should be walking or pausing at a patrol point
-var walking: bool = false # set to false if you want the dolphin to just never move, for debugging
+var walking: bool = true # set to false if you want the dolphin to just never move, for debugging
 
-var spotlight_detector
-var spotlight_object
+var spotlight_detector # spotlight Area3D collider for Pedro trigger
+var spotlight_object # the SpotLight3D object itself
 var spotlight_original_color: Color = Color(0, 255, 255)
 var spotlight_alert_color: Color = Color(255, 0, 0)
+
+# 0 = no sensitivity ... 1 = instant sensitivity (insta-death)
+var spotlight_sensitivity: float = 0.3
 
 # movement speed of the dolphin
 @export var speed: float
@@ -40,6 +43,7 @@ func _ready() -> void:
 	# var test = patrol_points.get_children()
 	
 	print(patrol_points)
+	print("============Node: ", get_node("/root").get_child(0).find_child("Player"))
 	print("Spotlight: ", spotlight_detector)
 	# print(test)
 	# print(typeof(test))
@@ -63,11 +67,14 @@ func _process(delta: float) -> void:
 
 func _physics_process(delta: float) -> void:
 	
-	if spotlight_detector.has_overlapping_bodies():
+	if move_and_slide():
+		print("OW")
+	
+	if spotlight_detector.overlaps_body(get_node("/root").get_child(0).find_child("Player")):
 		print("Found Pedro")
-		spotlight_object.light_color = spotlight_object.light_color.lerp(spotlight_alert_color, 0.3 * delta)
+		spotlight_object.light_color = spotlight_object.light_color.lerp(spotlight_alert_color, spotlight_sensitivity * delta)
 	else:
-		spotlight_object.light_color = spotlight_object.light_color.lerp(spotlight_original_color, 0.3 * delta)
+		spotlight_object.light_color = spotlight_object.light_color.lerp(spotlight_original_color, spotlight_sensitivity * delta)
 	
 	if walking == false:
 		# currently waiting at a point

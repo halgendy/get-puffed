@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://c8m1siptbs00"]
+[gd_scene load_steps=10 format=3 uid="uid://c8m1siptbs00"]
 
 [ext_resource type="PackedScene" uid="uid://cq6i7byh4r1ry" path="res://scenes/dolphin.tscn" id="1_120fo"]
 [ext_resource type="PackedScene" uid="uid://c4fpo65hiycjq" path="res://scenes/player.tscn" id="2_35h33"]
@@ -15,6 +15,13 @@ albedo_color = Color(0.283139, 0.150214, 1.20327e-07, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_683u2"]
 size = Vector3(3.55374, 0.0339203, 3.83917)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gff4u"]
+albedo_color = Color(0, 1, 1, 1)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_bxsb4"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gmrwg"]
+
 [node name="DolphinTest" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -24,17 +31,29 @@ environment = SubResource("Environment_5bftr")
 transform = Transform3D(-1, 0, -8.74228e-08, -5.3262e-08, 0.792981, 0.609246, 6.93246e-08, 0.609246, -0.792981, 0, 55, -65)
 fov = 60.0
 
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
+[node name="Floor" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.70514, 0.133067, 21.162)
 size = Vector3(134.82, 0.2, 144.509)
 material = SubResource("StandardMaterial3D_7getn")
 
-[node name="RigidBody3D" type="StaticBody3D" parent="CSGBox3D"]
+[node name="RigidBody3D" type="StaticBody3D" parent="Floor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.70514, 0.133067, 21.162)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CSGBox3D/RigidBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/RigidBody3D"]
 transform = Transform3D(37.6, 0, 0, 0, 37.6, 0, 0, 0, 37.6, -1.99715, -1.21201, -20.9331)
 shape = SubResource("BoxShape3D_683u2")
+
+[node name="Obstacle" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.43755, 3.42453, 43.1858)
+use_collision = true
+size = Vector3(10.0457, 7.84906, 14.4077)
+material = SubResource("StandardMaterial3D_gff4u")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Obstacle"]
+physics_material_override = SubResource("PhysicsMaterial_bxsb4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacle/RigidBody3D"]
+shape = SubResource("BoxShape3D_gmrwg")
 
 [node name="DolphinAndPaths" type="Node3D" parent="."]
 
@@ -61,7 +80,10 @@ transform = Transform3D(-20, 0, -1.74846e-06, 0, 20, 0, 1.74846e-06, 0, -20, 0, 
 wait_time = 5.0
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 4, 0)
+transform = Transform3D(1, 0, 0, 0, 0.600825, 0.799381, 0, -0.799381, 0.600825, 0, 23.6187, 0)
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.939663, 0.27347, -0.205544, 0, 0.600825, 0.799381, 0.342102, 0.751148, -0.564573, -50.2446, 23.6187, 0)
 
 [node name="Player" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("2_35h33")]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -24.4738, 8.4692, 61.4136)
