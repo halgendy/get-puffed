@@ -3,8 +3,9 @@
 [ext_resource type="Texture2D" uid="uid://b1nlbuo7mjjh2" path="res://assets/WATERPICKUP.png" id="1_1a44w"]
 [ext_resource type="Script" path="res://modules/health_pickup/health_pickup.gd" id="1_kpa8v"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_6msig"]
-radius = 0.0867769
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7j31u"]
+radius = 0.087
+height = 0.4
 
 [sub_resource type="Animation" id="Animation_dr2gg"]
 resource_name = "Idle"
@@ -59,7 +60,7 @@ collision_layer = 8
 collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PickupBox"]
-shape = SubResource("SphereShape3D_6msig")
+shape = SubResource("CapsuleShape3D_7j31u")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
