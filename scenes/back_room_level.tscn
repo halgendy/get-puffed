@@ -1,4 +1,4 @@
-[gd_scene load_steps=434 format=4 uid="uid://bj8djmldc1t8o"]
+[gd_scene load_steps=435 format=4 uid="uid://bj8djmldc1t8o"]
 
 [ext_resource type="Texture2D" uid="uid://b343ym511jhaf" path="res://assets/environment/Environment_Complete_0.png" id="1_wmbm4"]
 [ext_resource type="Texture2D" uid="uid://b3awbbvrew42s" path="res://assets/environment/Environment_Complete_2.png" id="2_y4xuc"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://dfk5qunvj1k3j" path="res://modules/health_pickup/water_droplet_manager.tscn" id="8_c88xv"]
 [ext_resource type="PackedScene" uid="uid://vj4vg5qobmpn" path="res://scenes/dolphin_mafioso.tscn" id="8_o62sp"]
 [ext_resource type="PackedScene" uid="uid://ddw0qc001h40e" path="res://scenes/dolphin_donfin.tscn" id="9_knxs7"]
+[ext_resource type="AudioStream" uid="uid://ghuopm2afusc" path="res://sfx/BackroomsAmbience.wav" id="11_e782d"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vv60k"]
 resource_name = "standardSurface1"
@@ -7864,6 +7865,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -46.0877, -6.17713, -6.34733)
 
 [node name="WaterDropletManager3" parent="." instance=ExtResource("8_c88xv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -58.5677, -5.63762, -20.7064)
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43.5307, 0, -17.9201)
+stream = ExtResource("11_e782d")
+unit_size = 3.0
+autoplay = true
 
 [connection signal="timeout" from="DolphinAndPaths/Path1/Dolphin/WaitTimer" to="DolphinAndPaths/Path1/Dolphin" method="_on_wait_timer_timeout"]
 [connection signal="timeout" from="DolphinAndPaths/Path2/Dolphin/WaitTimer" to="DolphinAndPaths/Path2/Dolphin" method="_on_wait_timer_timeout"]
