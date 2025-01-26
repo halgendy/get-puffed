@@ -106,11 +106,13 @@ func _process(delta: float) -> void:
 	#camera.rotate_y((desired_rotation - camera.rotation.y) * 0.05)
 	
 	if Input.is_action_just_pressed("dash") and last_walk_dir != Vector3.ZERO:
-		apply_central_force(last_walk_dir * 1200.0 * mass)
-		health.drain(20.0)
-		AudioManager.play_audio(movement_audio)
+		print(health.get_percent())
+		if health.get_percent() > 0.25:
+			apply_central_force(last_walk_dir * 1200.0 * mass)
+			health.drain(20.0)
+			AudioManager.play_audio(movement_audio)
 	
-	print(breadcrumbs)
+	#print(breadcrumbs)
 	var desired_position = _active_crumb()
 
 	if desired_position:

@@ -10,6 +10,7 @@ var _health = 100.0
 
 
 func get_percent():
+	print(_health)
 	return _health / MAX_HEALTH
 
 func get_bubble_count():
