@@ -3,8 +3,8 @@ extends RigidBody3D
 
 # States
 @export var can_move: bool = true
-@export var checkpoint: Vector3 = position
 @export var movement_audio: AudioStream
+@onready var checkpoint: Vector3 = global_position
 
 # Camera Parameters
 var default_mouse_mode = Input.MOUSE_MODE_HIDDEN
@@ -49,11 +49,12 @@ func _ready() -> void:
 
 
 func respawn():
-	position = checkpoint
+	global_position = checkpoint
 	health.restart()
 	self.reset_physics_interpolation()
 	self.angular_velocity = Vector3.ZERO
 	self.linear_velocity = Vector3.ZERO
+	camera_current_breadcrumb = position
 
 var last_walk_dir := Vector3.ZERO
 
@@ -107,11 +108,13 @@ func _process(delta: float) -> void:
 	#camera.rotate_y((desired_rotation - camera.rotation.y) * 0.05)
 	
 	if Input.is_action_just_pressed("dash") and last_walk_dir != Vector3.ZERO:
-		apply_central_force(last_walk_dir * 1200.0 * mass)
-		health.drain(20.0)
-		AudioManager.play_audio(movement_audio)
+		print(health.get_percent())
+		if health.get_percent() > 0.25:
+			apply_central_force(last_walk_dir * 1200.0 * mass)
+			health.drain(20.0)
+			AudioManager.play_audio(movement_audio)
 	
-	print(breadcrumbs)
+	#print(breadcrumbs)
 	var desired_position = _active_crumb()
 
 	if desired_position:
