@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://c6rh4bcwtyucl"]
+[gd_scene load_steps=11 format=3 uid="uid://dolwoohy6nykn"]
 
 [ext_resource type="Script" path="res://script/world.gd" id="1_48q1r"]
 [ext_resource type="PackedScene" uid="uid://c4fpo65hiycjq" path="res://scenes/player.tscn" id="1_ibnp7"]
@@ -11,7 +11,7 @@
 
 [sub_resource type="Environment" id="Environment_8nuko"]
 background_mode = 2
-ambient_light_color = Color(0.325441, 0.325441, 0.325441, 1)
+ambient_light_color = Color(0.67069, 0.67069, 0.67069, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_uhbbt"]
 size = Vector3(8.02197, 30.3618, 18.2777)
