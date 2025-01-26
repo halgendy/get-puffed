@@ -8,7 +8,7 @@
 size = Vector3(0.607116, 0.798523, 0.0605488)
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_s5acy"]
-height = 0.0540556
+height = 0.308026
 
 [node name="CharacterBody3D" type="CharacterBody3D"]
 script = ExtResource("1_mapua")
@@ -33,11 +33,12 @@ spot_range = 44.0
 spot_angle = 14.0
 
 [node name="SpotlightCollision" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.508704)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, -0.509)
 collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SpotlightCollision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
 shape = SubResource("CylinderShape3D_s5acy")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
