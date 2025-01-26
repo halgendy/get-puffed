@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://c2ykh0ffwl31l"]
+[gd_scene load_steps=3 format=3 uid="uid://c2ykh0ffwl31l"]
 
 [ext_resource type="Script" path="res://modules/ui/extras_menu/tutorial_screen.gd" id="1_2riml"]
+[ext_resource type="Theme" uid="uid://bqh5tynlufgga" path="res://default_theme.tres" id="1_eata6"]
 
 [node name="TutorialScreen" type="Control"]
 layout_mode = 3
@@ -15,6 +16,7 @@ offset_right = 526.0
 offset_bottom = 274.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_eata6")
 script = ExtResource("1_2riml")
 
 [node name="TabContainer" type="TabContainer" parent="."]
