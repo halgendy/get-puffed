@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://baquo6ypqrd52"]
+[gd_scene load_steps=7 format=3 uid="uid://baquo6ypqrd52"]
 
 [ext_resource type="Theme" uid="uid://bqh5tynlufgga" path="res://default_theme.tres" id="1_7ifwc"]
 [ext_resource type="Script" path="res://modules/ui/title_screen/title_screen.gd" id="1_prugo"]
 [ext_resource type="PackedScene" uid="uid://c2ykh0ffwl31l" path="res://modules/ui/extras_menu/tutorial_screen.tscn" id="2_61ucg"]
 [ext_resource type="Texture2D" uid="uid://dqstkcduqwpr6" path="res://assets/TITLESCREEN.png" id="3_ep2sy"]
+[ext_resource type="Texture2D" uid="uid://dc1f3t2nq80t1" path="res://assets/START_BUTTON.png" id="4_aeadx"]
+[ext_resource type="Texture2D" uid="uid://xnykrsyjon04" path="res://assets/EXTRAS_BUTTON.png" id="5_tc7jt"]
 
 [node name="TitleScreen" type="Control"]
 layout_mode = 3
@@ -31,35 +33,39 @@ layout_mode = 1
 anchors_preset = 0
 
 [node name="StartButton" type="Button" parent="MainElements"]
+texture_filter = 5
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 506.0
-offset_top = 408.0
-offset_right = 653.0
-offset_bottom = 452.0
+offset_left = 531.0
+offset_top = 404.0
+offset_right = 603.0
+offset_bottom = 444.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(1.5, 1.5)
 theme = ExtResource("1_7ifwc")
-text = "Start"
+theme_override_icons/icon = ExtResource("4_aeadx")
 
 [node name="Tutorial" type="Button" parent="MainElements"]
+texture_filter = 5
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 506.0
-offset_top = 466.0
-offset_right = 653.0
-offset_bottom = 510.0
+offset_left = 531.0
+offset_top = 467.0
+offset_right = 603.0
+offset_bottom = 511.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Extras"
+scale = Vector2(1.5, 1.5)
+icon = ExtResource("5_tc7jt")
 
 [node name="TutorialScreen" parent="." instance=ExtResource("2_61ucg")]
 unique_name_in_owner = true
