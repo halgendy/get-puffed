@@ -14,7 +14,7 @@ func get_percent():
 
 func get_bubble_count():
 	var percent = get_percent()
-	return floor(percent * MAX_UI_BUBBLE)
+	return ceil(percent * MAX_UI_BUBBLE)
 
 func _process(delta):
 	_health -= delta * DRAIN_SPEED
