@@ -1,41 +1,55 @@
 extends CharacterBody3D
 
+# a reference to the Player Node
+var player_node
+
 # an array of references to the Marker3D objects that denote each patrol checkpoint for the dolphin
 var patrol_points#: Array[Marker3D]
 
 # the current point the dolphin is waiting at, or if it's walking, the last point the dolphin was at
 var current_point_index
-
+# the index of the next point the dolphin will work its way towards while patrolling
 var next_point_index
 
+# a flag to check which "direction" the dolphin is currently moving in on its patrol path
+# false = it's working its way towards patrol_point[last]
+# true = it's working its way towards patrol_point[0]
 var is_returning: bool = false
 
-# simple bool to check if dolphin should be walking or pausing at a patrol point
-var walking: bool = false # set to false initially if you want the dolphin to just never move, for debugging
-
-# bool that tracks if the dolphin is in chase mode (walking will be false in that case and this will become true)
-# otherwise, flip them
-var chasing: bool = true
+# enum tracking 3 states for the dolphin.
+# WAITING = pausing and turning at a designated patrol point
+# WALKING = walking towards the next patrol point in its path
+# CHASING = Pedro spent long enough in the dolphin's vision that the dolphin is now on the hunt
+enum {MODE_WAITING, MODE_WALKING, MODE_CHASING}
+# current_state will have one of these 3 enum values, tracking which state the dolphin is in
+var current_state
 
 var spotlight_detector # spotlight Area3D collider for Pedro trigger
 var spotlight_object # the SpotLight3D object itself
-var spotlight_original_color: Color = Color(0, 255, 255)
-var spotlight_alert_color: Color = Color(255, 0, 0)
+var spotlight_original_color: Color = Color(0, 255, 255) # a light cyan blue
+var spotlight_alert_color: Color = Color(255, 0, 0) # pure red
 
-# 0 = no sensitivity ... 1 = instant sensitivity (insta-death)
+# 0 = no sensitivity ... 1 = instantly changes color
+# affects how fast the spotlight changes from original_color to alert_color
 var spotlight_sensitivity: float = 0.3
+
+# float value with range [0, 255] determining how red the spotlight can get before dolphin starts chasing
+@export var chase_activation_threshold: float = 200.0
 
 # movement speed of the dolphin when patrolling
 @export var patrol_speed: float
 
-# movement speed of the dolphin when it's spotted Pedro and is chasing
+# movement speed of the dolphin when in chase mode
 @export var chase_speed: float
 
-# how fast the dolphin turns, in euler angles
-@export var turn_speed: float
+# how fast the dolphin turns, higher = turns more quickly
+@export var turn_speed_patrol: float
 
-# how long the dolphin will wait at a patrol point before moving again
-@export var wait_timer: float
+# how fast the dolphin turns while in chase mode, higher = turns more quickly
+@export var turn_speed_chase: float
+
+# how long the dolphin will wait (seconds) at a patrol point before moving again
+@export var wait_timer_patrol: float
 
 # The NavigationAgent3D that handles navigating
 @onready var nav: NavigationAgent3D = $NavigationAgent3D
@@ -43,28 +57,28 @@ var spotlight_sensitivity: float = 0.3
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	patrol_speed = 30.0
-	wait_timer = 2.0
-	turn_speed = 5.0
+	wait_timer_patrol = 2.0
+	turn_speed_patrol = 5.0
+	
+	turn_speed_chase = 3.0
 	chase_speed = 10.0
 	
 	patrol_points = self.get_parent().find_child("PatrolPoints").get_children()
 	spotlight_detector = find_child("SpotlightCollision")
 	spotlight_object = find_child("SpotLight3D")
 	
-	# var test = patrol_points.get_children()
+	player_node = get_node("/root").get_child(0).find_child("Player")
 	
-	print(patrol_points)
-	print("============Node: ", get_node("/root").get_child(0).find_child("Player"))
+	print("Patrol points:", patrol_points)
+	print("============Player: ", player_node)
 	print("Spotlight: ", spotlight_detector)
-	# print(test)
-	# print(typeof(test))
 	
-	# print(patrol_points[1].position)
-	
-	print(patrol_points.size())
+	print("Number of patrol points: ", patrol_points.size())
 	
 	current_point_index = 0
 	next_point_index = 1
+	
+	current_state = MODE_WALKING
 	
 	pass # Replace with function body.
 
@@ -78,39 +92,45 @@ func _process(delta: float) -> void:
 
 func _physics_process(delta: float) -> void:
 	
-	nav.target_position = get_node("/root").get_child(0).find_child("Player").position
-	# print("TARGET = ", nav.target_position)
-	
-	var direction = nav.get_next_path_position() - self.position
-	direction = direction.normalized()
-	
-	var goal_angle = atan2(position.x - nav.target_position.x, position.z - nav.target_position.z)
-	rotation.y = lerp_angle(rotation.y, goal_angle, turn_speed * delta * 2)
-	
-	velocity = velocity.lerp(direction * chase_speed, 10 * delta)
+	if current_state == MODE_CHASING:
+		nav.target_position = player_node.position
+		
+		var direction = nav.get_next_path_position() - self.position
+		direction = direction.normalized()
+		
+		_turn_towards_target(delta, nav.target_position, turn_speed_chase)
+		
+		velocity = velocity.lerp(direction * chase_speed, 10 * delta)
+		
 	
 	if move_and_slide():
 		print("OW")
 	
 	_check_spotlight(delta)
 	
-	if walking == false:
+	print("LOOP_START state = ", current_state)
+	
+	#if walking == false:
+	if current_state == MODE_WAITING:
 		# currently waiting at a point
-		_turn_towards_next_point(delta)
+		_turn_towards_target(delta, patrol_points[next_point_index].position, turn_speed_patrol)
 		pass
-	else:
+	elif current_state == MODE_WALKING:
 		position = position.move_toward(patrol_points[next_point_index].position, delta * patrol_speed)
 		# print("walk")
 		
 		if position == patrol_points[next_point_index].position:
-			walking = false
+			print("--------------reached point")
+			
+			current_state = MODE_WAITING
 			current_point_index = next_point_index
 			_reached_point()
 
 # a timer of length wait_timer (sec) starts when the rolphin is in patrol mode (walking) and reaches a patrol point
 func _on_timer_timeout() -> void:
 	# timer ended, we need to start walking
-	walking = true
+	# walking = true
+	current_state = MODE_WALKING
 	print("=================TIMER OUT===========")
 	look_at(patrol_points[next_point_index].position)
 
@@ -137,21 +157,36 @@ func _reached_point() -> void:
 	print("next point = ", next_point_index)
 	print("--------------------------")
 	
-	$Timer.start(wait_timer)
+	$Timer.start(wait_timer_patrol)
+	
 	pass
 
 # helper function to turn the dolphin towards the next patrol point
 # called when the dolphin reaches a designated patrol point
-func _turn_towards_next_point(delta: float) -> void:
+func _turn_towards_target(delta: float, target: Vector3, turn_sens: float) -> void:
 	# x / z, in radians
-	var goal_angle = atan2(position.x - patrol_points[next_point_index].position.x, position.z - patrol_points[next_point_index].position.z)
 	
-	rotation.y = lerp_angle(rotation.y, goal_angle, turn_speed * delta)
+	var goal_angle = atan2(position.x - target.x, position.z - target.z)
+	rotation.y = lerp_angle(rotation.y, goal_angle, turn_sens * delta)
 	
 # helper function that handles the spotlight detecting whether or not Pedro is in its detection area
 func _check_spotlight(delta: float) -> void:
-	if spotlight_detector.overlaps_body(get_node("/root").get_child(0).find_child("Player")):
-		print("Found Pedro")
+	
+	# print(spotlight_object.light_color)
+	
+	if spotlight_object.light_color.r > chase_activation_threshold:
+		current_state = MODE_CHASING
+		print("====CHASE TIME")
+	else:
+		if $Timer.time_left > 0:
+			current_state = MODE_WAITING
+			print("WAIT TIME")
+		else:
+			current_state = MODE_WALKING
+			print("WALK TIME")
+	
+	if spotlight_detector.overlaps_body(player_node):
+		# print("Found Pedro")
 		spotlight_object.light_color = spotlight_object.light_color.lerp(spotlight_alert_color, spotlight_sensitivity * delta)
 	else:
 		spotlight_object.light_color = spotlight_object.light_color.lerp(spotlight_original_color, spotlight_sensitivity * delta)
