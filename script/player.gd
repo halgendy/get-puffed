@@ -1,3 +1,4 @@
+class_name Player
 extends RigidBody3D
 
 # States
@@ -11,7 +12,8 @@ var jump_trauma = 0.5
 var sprint_trauma = 0.2
 var walk_trauma = 0.1
 var stop_trauma = 0.5
-var breadcrumbs: Array = range(10).map(func(x): return position)
+const NUM_BREADCRUMBS = 50
+var breadcrumbs: Array = []
 var camera_current_breadcrumb = position
 
 # Movement Parameters
@@ -42,6 +44,7 @@ var pitch_input := 0.0
 # Called when the node enters the scene tree for the **first time.**
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+	$AnimationPlayer.play("walk")
 
 
 func respawn():
@@ -54,7 +57,7 @@ func respawn():
 var last_walk_dir := Vector3.ZERO
 
 # Called every frame. (delta: float) is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	if health.is_dead():
 		respawn()
 	
@@ -72,8 +75,12 @@ func _process(_delta: float) -> void:
 		var cardinal_direction := Vector3.ZERO
 		cardinal_direction.x = Input.get_axis("move_left", "move_right")
 		cardinal_direction.z = Input.get_axis("move_forward", "move_back")
-		
-		
+		if cardinal_direction.z > 0: # animation stuff
+			$Sprite3D.show()
+			$Sprite3D2.hide()
+		else:
+			$Sprite3D.hide()
+			$Sprite3D2.show()
 		
 		var camera_y_rot = camera.rotation.y
 		
@@ -100,22 +107,45 @@ func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("dash") and last_walk_dir != Vector3.ZERO:
 		apply_central_force(last_walk_dir * 1200.0 * mass)
 		health.drain(20.0)
-		
 	
-	# 
+	print(breadcrumbs)
 	var desired_position = _active_crumb()
-	if desired_position:
-		camera.position += (desired_position - camera.position) * 0.01 #camera.position.lerp(position + camera_offset, delta*3.0)
-		camera.look_at(position)
 
+	if desired_position:
+		# distance squared to the player
+		var distance_squared = camera.global_position.distance_squared_to(global_position)
+		
+		# speed based of distance
+		var min_speed = 1.0
+		var max_speed = 10.0
+		var speed = lerp(min_speed, max_speed, clamp(distance_squared / 100, 0.0, 1.0))
+
+		# smooth move to next breadcrumb
+		var velocity = (desired_position - camera.global_position).normalized() * speed * delta
+		camera.global_position += velocity
+	else:
+		# idle if close enough to player
+		if camera.global_position.distance_to(global_position) > 5:
+			return  # Do nothing; the camera stays in place
+
+	# always
+	camera.look_at(global_position)
+
+
+# change to get closest
 func _active_crumb():
-	for crumb in breadcrumbs:
-		if position.distance_to(crumb) < 10 and position.distance_to(crumb) > 5:
-			return crumb
+	# find the next breadcrumb in the list
+	while breadcrumbs.size() > 0:
+		var crumb = breadcrumbs[0]
+		if camera.global_position.distance_to(crumb) < 2:  # if the camera "visits" the crumb
+			breadcrumbs.remove_at(0)  # Remove it
+		else:
+			return crumb  # first unvisited crumb
+	return null  # no crumbs are left, return null
 
 func _on_breadcrumb_timer_timeout():
-	if position.distance_to(breadcrumbs[-1]) > 5:
-		if len(breadcrumbs) > 100:
-			breadcrumbs.remove_at(0)
-		
-		breadcrumbs.append(position)
+		# new breadcrumb if the player has moved at least 2 units from the last one
+	if breadcrumbs.size() == 0 or global_position.distance_to(breadcrumbs[-1]) > 5:
+		if breadcrumbs.size() >= NUM_BREADCRUMBS:
+			breadcrumbs.remove_at(0)  # remove oldest breadcrumb to keep the list size
+		breadcrumbs.append(global_position)

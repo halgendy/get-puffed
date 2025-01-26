@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://5v1c6tlxy5r5"]
+
+[ext_resource type="PackedScene" uid="uid://erhgjq35t6k5" path="res://assets/backrooms/WholeScene (4).fbx" id="1_l5ls7"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="WholeScene (4)" parent="." instance=ExtResource("1_l5ls7")]

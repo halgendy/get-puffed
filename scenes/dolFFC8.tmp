@@ -1,0 +1,62 @@
+[gd_scene load_steps=6 format=3 uid="uid://c8m1siptbs00"]
+
+[ext_resource type="PackedScene" uid="uid://cq6i7byh4r1ry" path="res://scenes/dolphin.tscn" id="1_120fo"]
+[ext_resource type="PackedScene" uid="uid://c4fpo65hiycjq" path="res://scenes/player.tscn" id="2_35h33"]
+
+[sub_resource type="Sky" id="Sky_qb25o"]
+
+[sub_resource type="Environment" id="Environment_5bftr"]
+background_mode = 2
+sky = SubResource("Sky_qb25o")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7getn"]
+albedo_color = Color(0, 0.0117647, 1, 1)
+
+[node name="DolphinTest" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_5bftr")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, -5.3262e-08, 0.792981, 0.609246, 6.93246e-08, 0.609246, -0.792981, 0, 55, -65)
+fov = 60.0
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.70514, 0.133067, 21.162)
+size = Vector3(134.82, 0.2, 144.509)
+material = SubResource("StandardMaterial3D_7getn")
+
+[node name="DolphinAndPaths" type="Node3D" parent="."]
+
+[node name="Path1" type="Node3D" parent="DolphinAndPaths"]
+
+[node name="PatrolPoints" type="Node3D" parent="DolphinAndPaths/Path1"]
+
+[node name="Point1" type="Marker3D" parent="DolphinAndPaths/Path1/PatrolPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, -40)
+
+[node name="Point2" type="Marker3D" parent="DolphinAndPaths/Path1/PatrolPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 40)
+
+[node name="Point3" type="Marker3D" parent="DolphinAndPaths/Path1/PatrolPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40, 0.2, 55)
+
+[node name="Point4" type="Marker3D" parent="DolphinAndPaths/Path1/PatrolPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 0.2, 20)
+
+[node name="CharacterBody3D" parent="DolphinAndPaths/Path1" instance=ExtResource("1_120fo")]
+transform = Transform3D(-20, 0, -1.74846e-06, 0, 20, 0, 1.74846e-06, 0, -20, 0, 2, 2)
+speed = 0.0
+turn_speed = 0.0
+wait_timer = 0.0
+
+[node name="Timer" type="Timer" parent="DolphinAndPaths/Path1/CharacterBody3D"]
+wait_time = 5.0
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 4, 0)
+
+[node name="Player" parent="." instance=ExtResource("2_35h33")]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -2.47383, 1.4692, 18.9259)
+
+[connection signal="timeout" from="DolphinAndPaths/Path1/CharacterBody3D/Timer" to="DolphinAndPaths/Path1/CharacterBody3D" method="_on_timer_timeout"]

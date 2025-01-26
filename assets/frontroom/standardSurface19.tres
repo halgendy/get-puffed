@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://f3ksoxxoik5v"]
+
+[resource]
+resource_name = "standardSurface19"
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.198533, 0.437905, 0.140745, 1)
+roughness = 0.988048
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 0.0

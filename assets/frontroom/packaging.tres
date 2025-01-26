@@ -1,0 +1,14 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://bly70gm6q6mq6"]
+
+[ext_resource type="Texture2D" uid="uid://dinm5060p4ffy" path="res://assets/frontroom/front room with collisions_1.png" id="1_jnffg"]
+
+[resource]
+resource_name = "packaging"
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_jnffg")
+roughness = 0.2
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 0.0
+uv1_scale = Vector3(-4, 4, 1)
+uv1_offset = Vector3(-0.5, 0, 0)

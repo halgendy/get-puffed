@@ -1,0 +1,112 @@
+[remap]
+
+importer="scene"
+importer_version=1
+type="PackedScene"
+uid="uid://cm8t1dil7oydr"
+path="res://.godot/imported/front room with collisions.fbx-87bac4aca5f4a564c06b3b33998aa12d.scn"
+
+[deps]
+
+source_file="res://assets/frontroom/front room with collisions.fbx"
+dest_files=["res://.godot/imported/front room with collisions.fbx-87bac4aca5f4a564c06b3b33998aa12d.scn"]
+
+[params]
+
+nodes/root_type=""
+nodes/root_name=""
+nodes/apply_root_scale=true
+nodes/root_scale=1.0
+nodes/import_as_skeleton_bones=false
+meshes/ensure_tangents=true
+meshes/generate_lods=true
+meshes/create_shadow_meshes=true
+meshes/light_baking=1
+meshes/lightmap_texel_size=0.2
+meshes/force_disable_compression=false
+skins/use_named_skins=true
+animation/import=true
+animation/fps=30
+animation/trimming=true
+animation/remove_immutable_tracks=true
+animation/import_rest_as_RESET=false
+import_script/path=""
+_subresources={
+"materials": {
+"cart": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/frontroom/cart.tres"
+},
+"floor": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/frontroom/floor.tres"
+},
+"lamp": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/frontroom/lamp.tres"
+},
+"packaging": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/frontroom/packaging.tres"
+},
+"paper_box": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/frontroom/paper_box.tres"
+},
+"phong1": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/frontroom/glass.tres"
+},
+"standardSurface1": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/frontroom/standardSurface1.tres"
+},
+"standardSurface11": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/frontroom/standardSurface11.tres"
+},
+"standardSurface18": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/frontroom/standardSurface18.tres"
+},
+"standardSurface19": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/frontroom/standardSurface19.tres"
+},
+"standardSurface7": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/frontroom/standardSurface7.tres"
+},
+"standardSurface8": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/frontroom/standardSurface8.tres"
+},
+"table_legs": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/frontroom/table_legs.tres"
+},
+"vent": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/frontroom/vent.tres"
+},
+"wall": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/frontroom/wall.tres"
+},
+"water1": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/frontroom/water1.tres"
+},
+"wet_floor_sign": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/frontroom/wet_floor_sign.tres"
+},
+"wood": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/frontroom/wood.tres"
+}
+}
+}
+fbx/importer=0
+fbx/allow_geometry_helper_nodes=false
+fbx/embedded_image_handling=1
