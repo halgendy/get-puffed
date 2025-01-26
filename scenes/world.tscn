@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://c6rh4bcwtyucl"]
+[gd_scene load_steps=11 format=3 uid="uid://c6rh4bcwtyucl"]
 
 [ext_resource type="Script" path="res://script/world.gd" id="1_48q1r"]
 [ext_resource type="PackedScene" uid="uid://c4fpo65hiycjq" path="res://scenes/player.tscn" id="1_ibnp7"]
 [ext_resource type="PackedScene" uid="uid://bxhj0d0crobqi" path="res://modules/health_pickup/health_pickup.tscn" id="2_c2dh3"]
-[ext_resource type="PackedScene" uid="uid://cm8t1dil7oydr" path="res://assets/front room with collisions.fbx" id="3_i6gwy"]
+[ext_resource type="PackedScene" uid="uid://cm8t1dil7oydr" path="res://assets/frontroom/front room with collisions.fbx" id="3_i6gwy"]
+[ext_resource type="PackedScene" uid="uid://hbjs405kkt3v" path="res://assets/backrooms/WholeScene (5).fbx" id="5_n0cl2"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6pkep"]
 sky_top_color = Color(0.566669, 0.386719, 0.465748, 1)
@@ -21,34 +22,37 @@ ambient_light_color = Color(0, 0.105882, 0.160784, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_uhbbt"]
 size = Vector3(20, 37.25, 20.259)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_xouut"]
+size = Vector3(67.7075, 3, 47.6117)
+
 [node name="World" type="Node3D"]
 script = ExtResource("1_48q1r")
 
-[node name="Node3D" type="Node3D" parent="."]
+[node name="SceneElements" type="Node3D" parent="."]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="Node3D"]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="SceneElements"]
 environment = SubResource("Environment_k3fwq")
 
-[node name="Player" parent="Node3D" node_paths=PackedStringArray("camera") instance=ExtResource("1_ibnp7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.83541, 0)
+[node name="Player" parent="SceneElements" node_paths=PackedStringArray("camera") instance=ExtResource("1_ibnp7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -119.524, -17.6307, 7.14963)
 camera = NodePath("../CameraPivot/Camera3D")
 
-[node name="CameraPivot" type="Node3D" parent="Node3D"]
+[node name="CameraPivot" type="Node3D" parent="SceneElements"]
 
-[node name="Camera3D" type="Camera3D" parent="Node3D/CameraPivot"]
+[node name="Camera3D" type="Camera3D" parent="SceneElements/CameraPivot"]
 transform = Transform3D(1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 0, 9.521, 9.819)
 current = true
 fov = 80.0
 
-[node name="HealthPickups" type="Node3D" parent="Node3D"]
+[node name="HealthPickups" type="Node3D" parent="SceneElements"]
 
-[node name="HealthPickup" parent="Node3D/HealthPickups" instance=ExtResource("2_c2dh3")]
-transform = Transform3D(16, 0, 0, 0, -15.9765, -0.867771, 0, 0.867771, -15.9765, 4.55686, -18.0201, -13.296)
+[node name="HealthPickup" parent="SceneElements/HealthPickups" instance=ExtResource("2_c2dh3")]
+transform = Transform3D(16, 0, 0, 0, -15.9765, -0.867771, 0, 0.867771, -15.9765, 2.62679, -19.0201, -13.2678)
 
 [node name="front room with collisions" parent="." instance=ExtResource("3_i6gwy")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
 
-[node name="Label3D" type="Label3D" parent="."]
+[node name="WinText" type="Label3D" parent="."]
 transform = Transform3D(-4.37114e-08, 1, 4.37114e-08, 0, -4.37114e-08, 1, 1, 4.37114e-08, 1.91069e-15, 41.0339, -20.434, 0.917559)
 modulate = Color(0, 0, 0, 1)
 text = "The Great Outdoors
@@ -56,10 +60,19 @@ text = "The Great Outdoors
 font_size = 100
 outline_size = 0
 
-[node name="Area3D" type="Area3D" parent="."]
+[node name="WinZone" type="Area3D" parent="."]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WinZone"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 52.6262, -7.03307, -0.627697)
 shape = SubResource("BoxShape3D_uhbbt")
 
-[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[node name="WholeScene (5)" parent="." instance=ExtResource("5_n0cl2")]
+transform = Transform3D(1.39, 0, 0, 0, 1.39, 0, 0, 0, 1.39, -91.25, -11.813, 11.78)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -104.163, -22.3325, 11.5099)
+shape = SubResource("BoxShape3D_xouut")
+
+[connection signal="body_entered" from="WinZone" to="." method="_on_area_3d_body_entered"]

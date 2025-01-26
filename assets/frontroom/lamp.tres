@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://dueaoywfr8uq"]
+
+[resource]
+resource_name = "lamp"
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.906332, 0.852575, 0.815941, 1)
+roughness = 0.517928
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 0.0

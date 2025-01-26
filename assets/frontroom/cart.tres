@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://b0iore71iu183"]
+
+[resource]
+resource_name = "cart"
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.24971, 0.268955, 0.411402, 1)
+roughness = 0.2
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 0.0

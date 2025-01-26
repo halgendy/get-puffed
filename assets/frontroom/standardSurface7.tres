@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bbqe06b41i7vp"]
+
+[resource]
+resource_name = "standardSurface7"
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.220916, 0.220916, 0.220916, 1)
+roughness = 0.0
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 0.0
