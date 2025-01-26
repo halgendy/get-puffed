@@ -96,7 +96,7 @@ transform = Transform3D(1, 0, 0, 0, 0.600825, 0.799381, 0, -0.799381, 0.600825, 
 transform = Transform3D(-0.939663, 0.27347, -0.205544, 0, 0.600825, 0.799381, 0.342102, 0.751148, -0.564573, -50.2446, 23.6187, 0)
 
 [node name="Player" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("2_35h33")]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -58.4738, 8.4692, 34.4136)
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -2.4738, 8.4692, 15.4136)
 collision_mask = 3
 camera = NodePath("../CameraPivot/Camera3D")
 

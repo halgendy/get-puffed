@@ -17,11 +17,11 @@ script = ExtResource("1_mapua")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0201724, 0.470734, 0.00732707)
 shape = SubResource("BoxShape3D_b8xsm")
 
-[node name="Sprite3D" type="Sprite3D" parent="."]
+[node name="FrontSprite" type="Sprite3D" parent="."]
 transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 0.5, 0)
 texture = ExtResource("2_rjt3w")
 
-[node name="Sprite3D2" type="Sprite3D" parent="."]
+[node name="BackSprite" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.00282326)
 texture = ExtResource("3_od10s")
 
