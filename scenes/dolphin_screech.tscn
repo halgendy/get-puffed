@@ -1,0 +1,17 @@
+[gd_scene load_steps=6 format=3 uid="uid://bmxrx3hrrgqpt"]
+
+[ext_resource type="PackedScene" uid="uid://cq6i7byh4r1ry" path="res://scenes/dolphin.tscn" id="1_nv3u0"]
+[ext_resource type="AudioStream" uid="uid://cf0pjms53o1xa" path="res://sfx/ScreechSpeech.wav" id="2_fjv0h"]
+[ext_resource type="Texture2D" uid="uid://m84inrn2ct36" path="res://assets/screechfront.png" id="2_heo7b"]
+[ext_resource type="Texture2D" uid="uid://oocb0a3wo0p" path="res://assets/screechback.png" id="3_ergji"]
+[ext_resource type="AudioStream" uid="uid://eyki6778nkre" path="res://music/get puffed guitar1.wav" id="3_v2uba"]
+
+[node name="Dolphin" instance=ExtResource("1_nv3u0")]
+speech_audio = ExtResource("2_fjv0h")
+dolphin_music = ExtResource("3_v2uba")
+
+[node name="FrontSprite" parent="." index="1"]
+texture = ExtResource("2_heo7b")
+
+[node name="BackSprite" parent="." index="2"]
+texture = ExtResource("3_ergji")

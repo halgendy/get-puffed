@@ -1,0 +1,17 @@
+[gd_scene load_steps=6 format=3 uid="uid://vj4vg5qobmpn"]
+
+[ext_resource type="PackedScene" uid="uid://cq6i7byh4r1ry" path="res://scenes/dolphin.tscn" id="1_se73g"]
+[ext_resource type="AudioStream" uid="uid://lpnn2o5ublhj" path="res://sfx/JaredSpeech.wav" id="2_pt13o"]
+[ext_resource type="AudioStream" uid="uid://djcapimlh0s0n" path="res://music/get puffed sax.wav" id="3_hhydo"]
+[ext_resource type="Texture2D" uid="uid://cb3nbsxer8cb4" path="res://assets/HENCHMANFRONTGOOD.png" id="3_yhfxk"]
+[ext_resource type="Texture2D" uid="uid://cw5jbs41gb7de" path="res://assets/HENCHBACKREAL.png" id="4_b71ax"]
+
+[node name="Dolphin" instance=ExtResource("1_se73g")]
+speech_audio = ExtResource("2_pt13o")
+dolphin_music = ExtResource("3_hhydo")
+
+[node name="FrontSprite" parent="." index="1"]
+texture = ExtResource("3_yhfxk")
+
+[node name="BackSprite" parent="." index="2"]
+texture = ExtResource("4_b71ax")

@@ -1,0 +1,17 @@
+[gd_scene load_steps=6 format=3 uid="uid://1isukc8sgcek"]
+
+[ext_resource type="PackedScene" uid="uid://cq6i7byh4r1ry" path="res://scenes/dolphin.tscn" id="1_u1caa"]
+[ext_resource type="AudioStream" uid="uid://lpnn2o5ublhj" path="res://sfx/JaredSpeech.wav" id="2_ihora"]
+[ext_resource type="Texture2D" uid="uid://n1rc2t3occ8a" path="res://assets/JARED_FULL.png" id="2_xfk8s"]
+[ext_resource type="AudioStream" uid="uid://djcapimlh0s0n" path="res://music/get puffed sax.wav" id="3_6pvvn"]
+[ext_resource type="Texture2D" uid="uid://bs3we3wc5vkms" path="res://assets/JAREDBUTT.png" id="3_sqkyo"]
+
+[node name="Dolphin" instance=ExtResource("1_u1caa")]
+speech_audio = ExtResource("2_ihora")
+dolphin_music = ExtResource("3_6pvvn")
+
+[node name="FrontSprite" parent="." index="1"]
+texture = ExtResource("2_xfk8s")
+
+[node name="BackSprite" parent="." index="2"]
+texture = ExtResource("3_sqkyo")

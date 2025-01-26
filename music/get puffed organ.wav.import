@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://4y7q4o5fscja"
+path="res://.godot/imported/get puffed organ.wav-62341f8e635fcb8fb93509dba60bef15.sample"
+
+[deps]
+
+source_file="res://music/get puffed organ.wav"
+dest_files=["res://.godot/imported/get puffed organ.wav-62341f8e635fcb8fb93509dba60bef15.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=2
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=430 format=4 uid="uid://kl0i1ra7m7g0"]
+[gd_scene load_steps=432 format=4 uid="uid://bj8djmldc1t8o"]
 
 [ext_resource type="Texture2D" uid="uid://b343ym511jhaf" path="res://assets/environment/Environment_Complete_0.png" id="1_wmbm4"]
 [ext_resource type="Texture2D" uid="uid://b3awbbvrew42s" path="res://assets/environment/Environment_Complete_2.png" id="2_y4xuc"]
@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://oqek1m4ba81i" path="res://assets/environment/Environment_Complete_4.png" id="4_4efnv"]
 [ext_resource type="Texture2D" uid="uid://cwqkt7aox1hqj" path="res://assets/environment/Environment_Complete_6.png" id="5_wsgx8"]
 [ext_resource type="Texture2D" uid="uid://d05h34scvhma2" path="res://assets/environment/Environment_Complete_5.png" id="6_4a4vd"]
+[ext_resource type="PackedScene" uid="uid://7m6kr2e0pli2" path="res://scenes/dolphin_haz.tscn" id="7_h8p04"]
+[ext_resource type="PackedScene" uid="uid://dfk5qunvj1k3j" path="res://modules/health_pickup/water_droplet_manager.tscn" id="8_c88xv"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vv60k"]
 resource_name = "standardSurface1"
@@ -7308,14 +7310,16 @@ skeleton = NodePath("")
 [node name="pointLight1" type="OmniLight3D" parent="Backroom"]
 transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, -17.4836, 4.92265, 0)
 light_color = Color(0.457123, 0.515, 0.264195, 1)
+light_energy = 25.0
 shadow_enabled = true
-omni_range = 4096.0
+omni_range = 128.0
 
 [node name="pointLight2" type="OmniLight3D" parent="Backroom"]
 transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 9.65366, 4.92265, 0)
 light_color = Color(0.457123, 0.515, 0.264195, 1)
+light_energy = 25.0
 shadow_enabled = true
-omni_range = 4096.0
+omni_range = 128.0
 
 [node name="Shelf_Blocking" type="Node3D" parent="Backroom"]
 transform = Transform3D(0.00389695, -0.27049, -0.962715, -0.999896, -0.014406, 2.98023e-08, -0.0138688, 0.962615, -0.270518, -4.36453, -18.6063, -4.84081)
@@ -7796,3 +7800,32 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.56413, 0.17737, -0.0670668
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Backroom/Walls/_StaticBody3D_18770"]
 shape = SubResource("ConcavePolygonShape3D_pwx4x")
+
+[node name="DolphinAndPaths" type="Node3D" parent="."]
+
+[node name="Path1" type="Node3D" parent="DolphinAndPaths"]
+
+[node name="PatrolPoints" type="Node3D" parent="DolphinAndPaths/Path1"]
+
+[node name="Point1" type="Marker3D" parent="DolphinAndPaths/Path1/PatrolPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.301, -6.94548, -24.2379)
+
+[node name="Point2" type="Marker3D" parent="DolphinAndPaths/Path1/PatrolPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.2216, -6.77474, -5.01709)
+
+[node name="Dolphin" parent="DolphinAndPaths/Path1" instance=ExtResource("7_h8p04")]
+transform = Transform3D(-7, 0, -6.11959e-07, 0, 7, 0, 6.11959e-07, 0, -7, -26.7092, -6.15679, -26.3732)
+
+[node name="WaitTimer" type="Timer" parent="DolphinAndPaths/Path1/Dolphin"]
+wait_time = 5.0
+
+[node name="WaterDropletManager" parent="DolphinAndPaths/Path1" instance=ExtResource("8_c88xv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -59.9891, -6.15619, -8.05108)
+
+[node name="WaterDropletManager2" parent="DolphinAndPaths/Path1" instance=ExtResource("8_c88xv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -46.0877, -6.17713, -6.34733)
+
+[node name="WaterDropletManager3" parent="DolphinAndPaths/Path1" instance=ExtResource("8_c88xv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -58.5677, -5.63762, -20.7064)
+
+[connection signal="timeout" from="DolphinAndPaths/Path1/Dolphin/WaitTimer" to="DolphinAndPaths/Path1/Dolphin" method="_on_wait_timer_timeout"]

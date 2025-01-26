@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://pa54c82kyalj"]
+[gd_scene load_steps=3 format=3 uid="uid://dfk5qunvj1k3j"]
 
 [ext_resource type="Script" path="res://modules/health_pickup/water_droplet_manager.gd" id="1_1e0jr"]
 [ext_resource type="PackedScene" uid="uid://bxhj0d0crobqi" path="res://modules/health_pickup/health_pickup.tscn" id="2_4x1pq"]
