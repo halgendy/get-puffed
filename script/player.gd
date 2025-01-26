@@ -145,7 +145,7 @@ func _active_crumb():
 
 func _on_breadcrumb_timer_timeout():
 		# new breadcrumb if the player has moved at least 2 units from the last one
-	if global_position.distance_to(breadcrumbs[-1]) > 5:
+	if breadcrumbs.size() == 0 or global_position.distance_to(breadcrumbs[-1]) > 5:
 		if breadcrumbs.size() >= NUM_BREADCRUMBS:
 			breadcrumbs.remove_at(0)  # remove oldest breadcrumb to keep the list size
 		breadcrumbs.append(global_position)
