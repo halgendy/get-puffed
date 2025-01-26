@@ -5,7 +5,6 @@ const BUBBLE = preload("res://scenes/bubble.tscn")
 
 @export var bubble_image: PackedScene
 
-@onready var bubble_container = $Control/HBoxContainer
 @onready var bubble_ui: Control = $Control/BubbleUI
 
 
