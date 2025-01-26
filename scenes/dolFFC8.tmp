@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://c8m1siptbs00"]
+[gd_scene load_steps=6 format=3 uid="uid://c8m1siptbs00"]
 
 [ext_resource type="PackedScene" uid="uid://cq6i7byh4r1ry" path="res://scenes/dolphin.tscn" id="1_120fo"]
 [ext_resource type="PackedScene" uid="uid://c4fpo65hiycjq" path="res://scenes/player.tscn" id="2_35h33"]
@@ -10,10 +10,7 @@ background_mode = 2
 sky = SubResource("Sky_qb25o")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7getn"]
-albedo_color = Color(0.283139, 0.150214, 1.20327e-07, 1)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_683u2"]
-size = Vector3(3.55374, 0.0339203, 3.83917)
+albedo_color = Color(0, 0.0117647, 1, 1)
 
 [node name="DolphinTest" type="Node3D"]
 
@@ -28,13 +25,6 @@ fov = 60.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.70514, 0.133067, 21.162)
 size = Vector3(134.82, 0.2, 144.509)
 material = SubResource("StandardMaterial3D_7getn")
-
-[node name="RigidBody3D" type="StaticBody3D" parent="CSGBox3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.70514, 0.133067, 21.162)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CSGBox3D/RigidBody3D"]
-transform = Transform3D(37.6, 0, 0, 0, 37.6, 0, 0, 0, 37.6, -1.99715, -1.21201, -20.9331)
-shape = SubResource("BoxShape3D_683u2")
 
 [node name="DolphinAndPaths" type="Node3D" parent="."]
 
@@ -56,6 +46,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 0.2, 20)
 
 [node name="CharacterBody3D" parent="DolphinAndPaths/Path1" instance=ExtResource("1_120fo")]
 transform = Transform3D(-20, 0, -1.74846e-06, 0, 20, 0, 1.74846e-06, 0, -20, 0, 2, 2)
+speed = 0.0
+turn_speed = 0.0
+wait_timer = 0.0
 
 [node name="Timer" type="Timer" parent="DolphinAndPaths/Path1/CharacterBody3D"]
 wait_time = 5.0
@@ -63,17 +56,7 @@ wait_time = 5.0
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 4, 0)
 
-[node name="Player" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("2_35h33")]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -24.4738, 8.4692, 61.4136)
-collision_layer = 3
-collision_mask = 3
-camera = NodePath("../CameraPivot/Camera3D")
-
-[node name="CameraPivot" type="Node3D" parent="."]
-
-[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
-transform = Transform3D(-0.998881, 0, 0.0472983, 0, 1, 0, -0.0472983, 0, -0.998881, -26.8207, 9.521, 47.2355)
-current = true
-fov = 80.0
+[node name="Player" parent="." instance=ExtResource("2_35h33")]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -2.47383, 1.4692, 18.9259)
 
 [connection signal="timeout" from="DolphinAndPaths/Path1/CharacterBody3D/Timer" to="DolphinAndPaths/Path1/CharacterBody3D" method="_on_timer_timeout"]

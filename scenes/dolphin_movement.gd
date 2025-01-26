@@ -11,7 +11,9 @@ var next_point_index
 var is_returning: bool = false
 
 # simple bool to check if dolphin should be walking or pausing at a patrol point
-var walking: bool = true
+var walking: bool = true # set to false if you want the dolphin to just never move, for debugging
+
+var spotlight
 
 # movement speed of the dolphin
 @export var speed: float
@@ -29,10 +31,12 @@ func _ready() -> void:
 	turn_speed = 5.0
 	
 	patrol_points = self.get_parent().find_child("PatrolPoints").get_children()
+	spotlight = find_child("SpotlightCollision")
 	
 	# var test = patrol_points.get_children()
 	
 	print(patrol_points)
+	print("Spotlight: ", spotlight)
 	# print(test)
 	# print(typeof(test))
 	
@@ -54,6 +58,9 @@ func _process(delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
+	
+	if spotlight.has_overlapping_bodies():
+		print("Found Pedro")
 	
 	if walking == false:
 		# currently waiting at a point
@@ -103,7 +110,5 @@ func _turn_towards_next_point(delta: float) -> void:
 	# x / z, in radians
 	var goal_angle = atan2(position.x - patrol_points[next_point_index].position.x, position.z - patrol_points[next_point_index].position.z)
 	
-	# rotation_degrees.y = lerp_angle(rotation_degrees.y, patrol_points[next_point_index].position, delta * turn_speed)
 	rotation.y = lerp_angle(rotation.y, goal_angle, turn_speed * delta)
-	# 
 	
