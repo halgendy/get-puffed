@@ -11,9 +11,12 @@ var next_point_index
 var is_returning: bool = false
 
 # simple bool to check if dolphin should be walking or pausing at a patrol point
-var walking: bool = true # set to false if you want the dolphin to just never move, for debugging
+var walking: bool = false # set to false if you want the dolphin to just never move, for debugging
 
-var spotlight
+var spotlight_detector
+var spotlight_object
+var spotlight_original_color: Color = Color(0, 255, 255)
+var spotlight_alert_color: Color = Color(255, 0, 0)
 
 # movement speed of the dolphin
 @export var speed: float
@@ -31,12 +34,13 @@ func _ready() -> void:
 	turn_speed = 5.0
 	
 	patrol_points = self.get_parent().find_child("PatrolPoints").get_children()
-	spotlight = find_child("SpotlightCollision")
+	spotlight_detector = find_child("SpotlightCollision")
+	spotlight_object = find_child("SpotLight3D")
 	
 	# var test = patrol_points.get_children()
 	
 	print(patrol_points)
-	print("Spotlight: ", spotlight)
+	print("Spotlight: ", spotlight_detector)
 	# print(test)
 	# print(typeof(test))
 	
@@ -59,8 +63,11 @@ func _process(delta: float) -> void:
 
 func _physics_process(delta: float) -> void:
 	
-	if spotlight.has_overlapping_bodies():
+	if spotlight_detector.has_overlapping_bodies():
 		print("Found Pedro")
+		spotlight_object.light_color = spotlight_object.light_color.lerp(spotlight_alert_color, 0.3 * delta)
+	else:
+		spotlight_object.light_color = spotlight_object.light_color.lerp(spotlight_original_color, 0.3 * delta)
 	
 	if walking == false:
 		# currently waiting at a point
