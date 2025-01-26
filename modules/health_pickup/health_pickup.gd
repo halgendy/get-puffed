@@ -1,7 +1,10 @@
 extends Node3D
 
 signal picked_up
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
+func _ready() -> void:
+	animation_player.play("idle")
 func _on_pickup_box_body_entered(body: Node3D) -> void:
 	if body is Player:
 		picked_up.emit()
