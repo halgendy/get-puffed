@@ -5,7 +5,7 @@ signal picked_up
 const JUMP_IN_PUDDLE = preload("res://sfx/JumpInPuddle.wav")
 
 func _ready() -> void:
-	animation_player.play("idle")
+	animation_player.play("Idle")
 func _on_pickup_box_body_entered(body: Node3D) -> void:
 	if body is Player:
 		AudioManager.play_audio(JUMP_IN_PUDDLE)

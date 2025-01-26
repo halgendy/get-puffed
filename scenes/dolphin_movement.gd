@@ -34,7 +34,7 @@ var spotlight_alert_color: Color = Color(255, 0, 0) # pure red
 var spotlight_sensitivity: float = 0.3
 
 # float value with range [0, 255] determining how red the spotlight can get before dolphin starts chasing
-@export var chase_activation_threshold: float = 200.0
+@export var chase_activation_threshold: float = 50.0
 
 # movement speed of the dolphin when patrolling
 @export var patrol_speed: float
@@ -71,7 +71,7 @@ func _ready() -> void:
 	spotlight_detector = find_child("SpotlightCollision")
 	spotlight_object = find_child("SpotLight3D")
 	
-	player_node = get_node("/root").get_child(0).find_child("Player")
+	player_node = get_node("/root").get_child(1).find_child("Player")
 	
 	print("Patrol points:", patrol_points)
 	print("============Player: ", player_node)
@@ -156,9 +156,11 @@ func _turn_towards_target(delta: float, target: Vector3, turn_sens: float) -> vo
 # also changes the spotlight color
 func _check_spotlight(delta: float) -> void:
 	
+	print("inside check_spotlight() ", spotlight_detector.overlaps_body(player_node))
+	
 	# print(spotlight_object.light_color)
 	if spotlight_detector.overlaps_body(player_node):
-		# print("Found Pedro")
+		print("Found Pedro")
 		spotlight_object.light_color = spotlight_object.light_color.lerp(spotlight_alert_color, spotlight_sensitivity * delta)
 	else:
 		spotlight_object.light_color = spotlight_object.light_color.lerp(spotlight_original_color, spotlight_sensitivity * delta)
@@ -210,3 +212,16 @@ func _wait(delta: float) -> void:
 	# currently waiting at a point
 	print("============WAIT")
 	_turn_towards_target(delta, patrol_points[next_point_index].position, turn_speed_patrol)
+
+
+#func _on_spotlight_collision_body_entered(body: Node3D) -> void:
+	#if body is Player:
+		#spotlight_object.light_color = spotlight_object.light_color.lerp(spotlight_alert_color, spotlight_sensitivity )
+	#
+	#pass # Replace with function body.
+#
+#
+#func _on_spotlight_collision_body_exited(body: Node3D) -> void:
+	#if body is Player:
+		#spotlight_object.light_color = spotlight_object.light_color.lerp(spotlight_original_color, spotlight_sensitivity)	
+	#pass # Replace with function body.
