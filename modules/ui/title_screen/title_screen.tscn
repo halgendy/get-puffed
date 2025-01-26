@@ -44,7 +44,7 @@ offset_bottom = 452.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_7ifwc")
-text = "Play"
+text = "Start"
 
 [node name="Tutorial" type="Button" parent="MainElements"]
 layout_mode = 1
@@ -59,7 +59,7 @@ offset_right = 653.0
 offset_bottom = 510.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Tutorial"
+text = "Extras"
 
 [node name="TutorialScreen" parent="." instance=ExtResource("2_61ucg")]
 unique_name_in_owner = true
