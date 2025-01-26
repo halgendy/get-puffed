@@ -3,8 +3,8 @@ extends RigidBody3D
 
 # States
 @export var can_move: bool = true
-@export var checkpoint: Vector3 = position
 @export var movement_audio: AudioStream
+@onready var checkpoint: Vector3 = global_position
 
 # Camera Parameters
 var default_mouse_mode = Input.MOUSE_MODE_HIDDEN
@@ -49,7 +49,7 @@ func _ready() -> void:
 
 
 func respawn():
-	position = checkpoint
+	global_position = checkpoint
 	health.restart()
 	self.reset_physics_interpolation()
 	self.angular_velocity = Vector3.ZERO
