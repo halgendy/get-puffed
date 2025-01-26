@@ -13,7 +13,7 @@ var sprint_trauma = 0.2
 var walk_trauma = 0.1
 var stop_trauma = 0.5
 const NUM_BREADCRUMBS = 50
-var breadcrumbs: Array = range(NUM_BREADCRUMBS).map(func(_x): return position)
+var breadcrumbs: Array = []
 var camera_current_breadcrumb = position
 
 # Movement Parameters
@@ -108,32 +108,45 @@ func _process(delta: float) -> void:
 		apply_central_force(last_walk_dir * 1200.0 * mass)
 		health.drain(20.0)
 	
+	
+	print(breadcrumbs)
 	var desired_position = _active_crumb()
-	if not desired_position: desired_position = global_position
-	var stiffness = 100.0  # Controls how quickly it moves to the target
-	var damping = 0.8     # Reduces oscillation (must be < 1 for stability)
-	var velocity = Vector3.ZERO
 
-	velocity += (desired_position - camera.global_position) * stiffness * delta
-	velocity *= damping
-	camera.global_position += velocity * delta
+	if desired_position:
+		# Calculate the distance squared to the player
+		var distance_squared = camera.global_position.distance_squared_to(global_position)
+		
+		# Map the distance to a speed range (adjust min_speed and max_speed as needed)
+		var min_speed = 1.0
+		var max_speed = 10.0
+		var speed = lerp(min_speed, max_speed, clamp(distance_squared / 100, 0.0, 1.0))  # Scale speed by distance
+
+		# Smoothly move toward the next breadcrumb
+		var velocity = (desired_position - camera.global_position).normalized() * speed * delta
+		camera.global_position += velocity
+	else:
+		# Remain idle if the camera is close enough to the player
+		if camera.global_position.distance_to(global_position) > 3:
+			return  # Do nothing; the camera stays in place
+
+	# Always look at the player
 	camera.look_at(global_position)
 
 
 # change to get closest
 func _active_crumb():
-	var closest_crumb = null
-	var closest_distance = INF
-	for crumb in breadcrumbs:
-		var distance = global_position.distance_to(crumb)
-		if distance >= 6 and distance < closest_distance:
-			closest_crumb = crumb
-			closest_distance = distance
-	return closest_crumb
+	# Find the next breadcrumb in the list
+	while breadcrumbs.size() > 0:
+		var crumb = breadcrumbs[0]
+		if camera.global_position.distance_to(crumb) < 2:  # If the camera "visits" the crumb
+			breadcrumbs.remove_at(0)  # Remove it
+		else:
+			return crumb  # Return the first unvisited crumb
+	return null  # If no crumbs are left, return null
 
 func _on_breadcrumb_timer_timeout():
-	if global_position.distance_to(breadcrumbs[-1]) > 2:
-		if len(breadcrumbs) > NUM_BREADCRUMBS:
-			breadcrumbs.remove_at(0)
-		
+		# Create a new breadcrumb if the player has moved at least 2 units from the last one
+	if breadcrumbs.size() == 0 or global_position.distance_to(breadcrumbs[-1]) > 2:
+		if breadcrumbs.size() >= NUM_BREADCRUMBS:
+			breadcrumbs.remove_at(0)  # Remove the oldest breadcrumb to keep the list size manageable
 		breadcrumbs.append(global_position)
