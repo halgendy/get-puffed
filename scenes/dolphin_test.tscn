@@ -86,7 +86,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 0.2, 20)
 [node name="CharacterBody3D" parent="DolphinAndPaths/Path1" instance=ExtResource("1_120fo")]
 transform = Transform3D(-20, 0, -1.74846e-06, 0, 20, 0, 1.74846e-06, 0, -20, 0, 2, 2)
 
-[node name="Timer" type="Timer" parent="DolphinAndPaths/Path1/CharacterBody3D"]
+[node name="WaitTimer" type="Timer" parent="DolphinAndPaths/Path1/CharacterBody3D"]
 wait_time = 5.0
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
@@ -107,4 +107,4 @@ transform = Transform3D(-0.998881, 0, 0.0472983, 0, 1, 0, -0.0472983, 0, -0.9988
 current = true
 fov = 80.0
 
-[connection signal="timeout" from="DolphinAndPaths/Path1/CharacterBody3D/Timer" to="DolphinAndPaths/Path1/CharacterBody3D" method="_on_timer_timeout"]
+[connection signal="timeout" from="DolphinAndPaths/Path1/CharacterBody3D/WaitTimer" to="DolphinAndPaths/Path1/CharacterBody3D" method="_on_wait_timer_timeout"]

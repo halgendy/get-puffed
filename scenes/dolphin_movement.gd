@@ -51,17 +51,21 @@ var spotlight_sensitivity: float = 0.3
 # how long the dolphin will wait (seconds) at a patrol point before moving again
 @export var wait_timer_patrol: float
 
+# bool for ensuring the timer only starts one instance
+var wait_timer_on: bool
+
 # The NavigationAgent3D that handles navigating
 @onready var nav: NavigationAgent3D = $NavigationAgent3D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	patrol_speed = 30.0
-	wait_timer_patrol = 2.0
+	patrol_speed = 10.0
+	wait_timer_patrol = 5.0
 	turn_speed_patrol = 5.0
+	wait_timer_on = false
 	
-	turn_speed_chase = 3.0
-	chase_speed = 10.0
+	turn_speed_chase = 0.5
+	chase_speed = 5.0
 	
 	patrol_points = self.get_parent().find_child("PatrolPoints").get_children()
 	spotlight_detector = find_child("SpotlightCollision")
@@ -92,73 +96,52 @@ func _process(delta: float) -> void:
 
 func _physics_process(delta: float) -> void:
 	
-	if current_state == MODE_CHASING:
-		nav.target_position = player_node.position
-		
-		var direction = nav.get_next_path_position() - self.position
-		direction = direction.normalized()
-		
-		_turn_towards_target(delta, nav.target_position, turn_speed_chase)
-		
-		velocity = velocity.lerp(direction * chase_speed, 10 * delta)
-		
-	
-	if move_and_slide():
-		print("OW")
-	
-	_check_spotlight(delta)
+	_determine_state(delta)
 	
 	print("LOOP_START state = ", current_state)
 	
-	#if walking == false:
-	if current_state == MODE_WAITING:
-		# currently waiting at a point
-		_turn_towards_target(delta, patrol_points[next_point_index].position, turn_speed_patrol)
-		pass
+	if current_state == MODE_CHASING:
+		_chase(delta)
 	elif current_state == MODE_WALKING:
-		position = position.move_toward(patrol_points[next_point_index].position, delta * patrol_speed)
-		# print("walk")
-		
-		if position == patrol_points[next_point_index].position:
-			print("--------------reached point")
-			
-			current_state = MODE_WAITING
-			current_point_index = next_point_index
-			_reached_point()
+		_walk(delta)
+	elif current_state == MODE_WAITING:
+		_wait(delta)
 
 # a timer of length wait_timer (sec) starts when the rolphin is in patrol mode (walking) and reaches a patrol point
-func _on_timer_timeout() -> void:
+func _on_wait_timer_timeout() -> void:
 	# timer ended, we need to start walking
-	# walking = true
 	current_state = MODE_WALKING
+	wait_timer_on = false
 	print("=================TIMER OUT===========")
 	look_at(patrol_points[next_point_index].position)
+	# position.z += 10e
 
 # called when the dolphin reaches a predesignated patrol point in its patrol path (patrol_points[])
 func _reached_point() -> void:
 	
-	if is_returning:
-		if current_point_index == 0:
-			is_returning = false
-			next_point_index = current_point_index + 1
-		else:
-			next_point_index = current_point_index - 1
+	if !wait_timer_on:
+		$WaitTimer.start(wait_timer_patrol)
+		current_state = MODE_WAITING
+		wait_timer_on = true
 		
-	elif !is_returning:
-		print("not returning")
-		if current_point_index == patrol_points.size() - 1:
-			print("go back")
-			is_returning = true
-			next_point_index = current_point_index - 1
-		else:
-			next_point_index = current_point_index + 1
-	
+		if is_returning:
+			if current_point_index == 0:
+				is_returning = false
+				next_point_index = current_point_index + 1
+			else:
+				next_point_index = current_point_index - 1
+		
+		elif !is_returning:
+			print("not returning")
+			if current_point_index == patrol_points.size() - 1:
+				print("go back")
+				is_returning = true
+				next_point_index = current_point_index - 1
+			else:
+				next_point_index = current_point_index + 1
 	print("current point = ", current_point_index)
 	print("next point = ", next_point_index)
 	print("--------------------------")
-	
-	$Timer.start(wait_timer_patrol)
-	
 	pass
 
 # helper function to turn the dolphin towards the next patrol point
@@ -170,23 +153,60 @@ func _turn_towards_target(delta: float, target: Vector3, turn_sens: float) -> vo
 	rotation.y = lerp_angle(rotation.y, goal_angle, turn_sens * delta)
 	
 # helper function that handles the spotlight detecting whether or not Pedro is in its detection area
+# also changes the spotlight color
 func _check_spotlight(delta: float) -> void:
 	
 	# print(spotlight_object.light_color)
-	
-	if spotlight_object.light_color.r > chase_activation_threshold:
-		current_state = MODE_CHASING
-		print("====CHASE TIME")
-	else:
-		if $Timer.time_left > 0:
-			current_state = MODE_WAITING
-			print("WAIT TIME")
-		else:
-			current_state = MODE_WALKING
-			print("WALK TIME")
-	
 	if spotlight_detector.overlaps_body(player_node):
 		# print("Found Pedro")
 		spotlight_object.light_color = spotlight_object.light_color.lerp(spotlight_alert_color, spotlight_sensitivity * delta)
 	else:
 		spotlight_object.light_color = spotlight_object.light_color.lerp(spotlight_original_color, spotlight_sensitivity * delta)
+
+# function that checks the spotlight status and determines which state the dolphin should be in
+func _determine_state(delta) -> void:
+	_check_spotlight(delta)
+	
+	#if $WaitTimer.time_left > 0 and spotlight_object.light_color.r <= chase_activation_threshold:
+			#current_state = MODE_WAITING
+			#print("#########other wait")
+			#return
+	
+	if spotlight_object.light_color.r > chase_activation_threshold:
+		current_state = MODE_CHASING
+		print("====CHASE TIME")
+	else:
+		if position == patrol_points[next_point_index].position:
+			print("--------------reached point")
+		
+			current_point_index = next_point_index
+			_reached_point()
+			print("WAIT TIME")
+		else:
+			current_state = MODE_WALKING
+			print("WALK TIME")
+	pass
+
+func _chase(delta: float) -> void:
+	nav.target_position = player_node.position
+	
+	var direction = nav.get_next_path_position() - self.position
+	direction = direction.normalized()
+	
+	_turn_towards_target(delta, nav.target_position, turn_speed_chase)
+	
+	velocity = velocity.lerp(direction * chase_speed, 10 * delta)
+	
+	if move_and_slide():
+		# print("OW")
+		pass
+
+func _walk(delta: float) -> void:
+	position = position.move_toward(patrol_points[next_point_index].position, delta * patrol_speed)
+	_turn_towards_target(delta, patrol_points[next_point_index].position, turn_speed_patrol)
+		# print("walk")
+
+func _wait(delta: float) -> void:
+	# currently waiting at a point
+	print("============WAIT")
+	_turn_towards_target(delta, patrol_points[next_point_index].position, turn_speed_patrol)
