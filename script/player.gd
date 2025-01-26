@@ -54,6 +54,7 @@ func respawn():
 	self.reset_physics_interpolation()
 	self.angular_velocity = Vector3.ZERO
 	self.linear_velocity = Vector3.ZERO
+	camera_current_breadcrumb = position
 
 var last_walk_dir := Vector3.ZERO
 
