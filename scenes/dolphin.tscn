@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://3r3eub063a0c" path="res://assets/SCOOTERBACK.png" id="3_od10s"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_b8xsm"]
-size = Vector3(0.607116, 0.798523, 0.228546)
+size = Vector3(0.607116, 0.798523, 0.0605488)
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_s5acy"]
 height = 0.0540556
@@ -14,7 +14,7 @@ height = 0.0540556
 script = ExtResource("1_mapua")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0201724, 0.470734, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0201724, 0.470734, 0.00732707)
 shape = SubResource("BoxShape3D_b8xsm")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
@@ -26,16 +26,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.00282326)
 texture = ExtResource("3_od10s")
 
 [node name="SpotLight3D" type="SpotLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2, -0.8)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2, -0.536115)
 light_color = Color(0, 1, 1, 1)
 light_energy = 0.05
-spot_range = 45.0
+spot_range = 44.0
 spot_angle = 14.0
 
 [node name="SpotlightCollision" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.508704)
 collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SpotlightCollision"]
 shape = SubResource("CylinderShape3D_s5acy")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
