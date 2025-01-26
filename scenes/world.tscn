@@ -1,10 +1,13 @@
-[gd_scene load_steps=11 format=3 uid="uid://c6rh4bcwtyucl"]
+[gd_scene load_steps=14 format=3 uid="uid://c6rh4bcwtyucl"]
 
 [ext_resource type="Script" path="res://script/world.gd" id="1_48q1r"]
 [ext_resource type="PackedScene" uid="uid://c4fpo65hiycjq" path="res://scenes/player.tscn" id="1_ibnp7"]
 [ext_resource type="PackedScene" uid="uid://cm8t1dil7oydr" path="res://assets/frontroom/front room with collisions.fbx" id="3_i6gwy"]
 [ext_resource type="PackedScene" uid="uid://pa54c82kyalj" path="res://modules/health_pickup/water_droplet_manager.tscn" id="4_333h4"]
 [ext_resource type="PackedScene" uid="uid://hbjs405kkt3v" path="res://assets/backrooms/WholeScene (5).fbx" id="5_n0cl2"]
+[ext_resource type="AudioStream" uid="uid://ghuopm2afusc" path="res://sfx/BackroomsAmbience.wav" id="6_njha0"]
+[ext_resource type="AudioStream" uid="uid://c6oven1xukktu" path="res://sfx/FrontRoomAmbience.wav" id="7_idkp5"]
+[ext_resource type="AudioStream" uid="uid://d06uttoy2mgc3" path="res://sfx/BeachAmbience.wav" id="8_ceuim"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6pkep"]
 sky_top_color = Color(0.566669, 0.386719, 0.465748, 1)
@@ -99,5 +102,24 @@ transform = Transform3D(1.39, 0, 0, 0, 1.39, 0, 0, 0, 1.39, -91.25, -11.813, 11.
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -104.163, -22.3325, 11.5099)
 shape = SubResource("BoxShape3D_xouut")
+
+[node name="SoundAffects" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -112.145, -11.6533, 16.0919)
+
+[node name="BackroomAmbienceSFX" type="AudioStreamPlayer3D" parent="SoundAffects"]
+stream = ExtResource("6_njha0")
+unit_size = 3.5
+autoplay = true
+
+[node name="FrontRoomAmbience" type="AudioStreamPlayer3D" parent="SoundAffects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 99.7687, 2.64288, -16.1876)
+stream = ExtResource("7_idkp5")
+unit_size = 5.0
+autoplay = true
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="SoundAffects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 155.6, -4.95541, -17.5091)
+stream = ExtResource("8_ceuim")
+unit_size = 2.0
 
 [connection signal="body_entered" from="WinZone" to="." method="_on_area_3d_body_entered"]
