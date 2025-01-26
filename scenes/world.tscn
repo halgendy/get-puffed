@@ -10,7 +10,6 @@
 [ext_resource type="PackedScene" uid="uid://kl0i1ra7m7g0" path="res://scenes/back_room_level.tscn" id="9_sbd1e"]
 
 [sub_resource type="Environment" id="Environment_8nuko"]
-ambient_light_energy = 0.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_uhbbt"]
 size = Vector3(20, 37.25, 20.259)
@@ -112,8 +111,46 @@ transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0)
 
 [node name="FrontRoomLevel" parent="Level" instance=ExtResource("8_oau76")]
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-light_energy = 0.0
-light_indirect_energy = 0.0
+[node name="bougie_room__1__spotLight2" type="SpotLight3D" parent="Level"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -9.98048, 1.49501, -4.99041)
+shadow_enabled = true
+spot_range = 256.0
+spot_angle = 85.0
+spot_angle_attenuation = 0.14
+
+[node name="bougie_room__1__spotLight3" type="SpotLight3D" parent="Level"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -1.51003, 1.49501, -4.99041)
+shadow_enabled = true
+spot_range = 256.0
+spot_angle = 85.0
+spot_angle_attenuation = 0.14
+
+[node name="bougie_room__1__spotLight4" type="SpotLight3D" parent="Level"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 6.30972, 1.49501, -4.99041)
+shadow_enabled = true
+spot_range = 256.0
+spot_angle = 85.0
+spot_angle_attenuation = 0.14
+
+[node name="bougie_room__1__spotLight5" type="SpotLight3D" parent="Level"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 6.30972, 1.49501, 5.04256)
+shadow_enabled = true
+spot_range = 256.0
+spot_angle = 85.0
+spot_angle_attenuation = 0.14
+
+[node name="bougie_room__1__spotLight6" type="SpotLight3D" parent="Level"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -1.51003, 1.49501, 5.04256)
+shadow_enabled = true
+spot_range = 256.0
+spot_angle = 85.0
+spot_angle_attenuation = 0.14
+
+[node name="bougie_room__1__spotLight7" type="SpotLight3D" parent="Level"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -9.98048, 1.49501, 5.04256)
+shadow_enabled = true
+spot_range = 256.0
+spot_angle = 85.0
+spot_angle_attenuation = 0.14
 
 [connection signal="body_entered" from="WinZone" to="." method="_on_area_3d_body_entered"]
