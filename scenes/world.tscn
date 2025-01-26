@@ -1,26 +1,16 @@
-[gd_scene load_steps=14 format=3 uid="uid://c6rh4bcwtyucl"]
+[gd_scene load_steps=12 format=3 uid="uid://c6rh4bcwtyucl"]
 
 [ext_resource type="Script" path="res://script/world.gd" id="1_48q1r"]
 [ext_resource type="PackedScene" uid="uid://c4fpo65hiycjq" path="res://scenes/player.tscn" id="1_ibnp7"]
-[ext_resource type="PackedScene" uid="uid://cm8t1dil7oydr" path="res://assets/frontroom/front room with collisions.fbx" id="3_i6gwy"]
 [ext_resource type="PackedScene" uid="uid://pa54c82kyalj" path="res://modules/health_pickup/water_droplet_manager.tscn" id="4_333h4"]
-[ext_resource type="PackedScene" uid="uid://hbjs405kkt3v" path="res://assets/backrooms/WholeScene (5).fbx" id="5_n0cl2"]
 [ext_resource type="AudioStream" uid="uid://ghuopm2afusc" path="res://sfx/BackroomsAmbience.wav" id="6_njha0"]
 [ext_resource type="AudioStream" uid="uid://c6oven1xukktu" path="res://sfx/FrontRoomAmbience.wav" id="7_idkp5"]
 [ext_resource type="AudioStream" uid="uid://d06uttoy2mgc3" path="res://sfx/BeachAmbience.wav" id="8_ceuim"]
+[ext_resource type="PackedScene" uid="uid://lcqnh5tp04pl" path="res://scenes/front_room_level.tscn" id="8_oau76"]
+[ext_resource type="PackedScene" uid="uid://kl0i1ra7m7g0" path="res://scenes/back_room_level.tscn" id="9_sbd1e"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6pkep"]
-sky_top_color = Color(0.566669, 0.386719, 0.465748, 1)
-sky_horizon_color = Color(0.388105, 0.701069, 0.83622, 1)
-
-[sub_resource type="Sky" id="Sky_jsewj"]
-sky_material = SubResource("ProceduralSkyMaterial_6pkep")
-
-[sub_resource type="Environment" id="Environment_k3fwq"]
-background_mode = 2
-sky = SubResource("Sky_jsewj")
-ambient_light_source = 3
-ambient_light_color = Color(0, 0.105882, 0.160784, 1)
+[sub_resource type="Environment" id="Environment_8nuko"]
+ambient_light_energy = 0.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_uhbbt"]
 size = Vector3(20, 37.25, 20.259)
@@ -33,16 +23,11 @@ script = ExtResource("1_48q1r")
 
 [node name="SceneElements" type="Node3D" parent="."]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="SceneElements"]
-environment = SubResource("Environment_k3fwq")
-
 [node name="Player" parent="SceneElements" node_paths=PackedStringArray("camera") instance=ExtResource("1_ibnp7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -119.524, -17.6307, 7.14963)
-camera = NodePath("../CameraPivot/Camera3D")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -159.092, -25.4282, -98.9968)
+camera = NodePath("../Camera3D")
 
-[node name="CameraPivot" type="Node3D" parent="SceneElements"]
-
-[node name="Camera3D" type="Camera3D" parent="SceneElements/CameraPivot"]
+[node name="Camera3D" type="Camera3D" parent="SceneElements"]
 transform = Transform3D(1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 0, 9.521, 9.819)
 current = true
 fov = 80.0
@@ -77,8 +62,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39.1927, -18.9763, 23.6568)
 [node name="WaterDropletManager9" parent="SceneElements/HealthPickups" instance=ExtResource("4_333h4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -122.298, -19.1195, 24.9219)
 
-[node name="front room with collisions" parent="." instance=ExtResource("3_i6gwy")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+[node name="WorldEnvironment" type="WorldEnvironment" parent="SceneElements"]
+environment = SubResource("Environment_8nuko")
 
 [node name="WinText" type="Label3D" parent="."]
 transform = Transform3D(-4.37114e-08, 1, 4.37114e-08, 0, -4.37114e-08, 1, 1, 4.37114e-08, 1.91069e-15, 41.0339, -20.434, 0.917559)
@@ -94,32 +79,41 @@ outline_size = 0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 52.6262, -7.03307, -0.627697)
 shape = SubResource("BoxShape3D_uhbbt")
 
-[node name="WholeScene (5)" parent="." instance=ExtResource("5_n0cl2")]
-transform = Transform3D(1.39, 0, 0, 0, 1.39, 0, 0, 0, 1.39, -91.25, -11.813, 11.78)
-
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -104.163, -22.3325, 11.5099)
 shape = SubResource("BoxShape3D_xouut")
 
-[node name="SoundAffects" type="Node3D" parent="."]
+[node name="SoundEffects" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -112.145, -11.6533, 16.0919)
 
-[node name="BackroomAmbienceSFX" type="AudioStreamPlayer3D" parent="SoundAffects"]
+[node name="BackroomAmbienceSFX" type="AudioStreamPlayer3D" parent="SoundEffects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -106.949, 43.7605, -73.6137)
 stream = ExtResource("6_njha0")
-unit_size = 3.5
+unit_size = 8.0
 autoplay = true
 
-[node name="FrontRoomAmbience" type="AudioStreamPlayer3D" parent="SoundAffects"]
+[node name="FrontRoomAmbience" type="AudioStreamPlayer3D" parent="SoundEffects"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 99.7687, 2.64288, -16.1876)
 stream = ExtResource("7_idkp5")
 unit_size = 5.0
 autoplay = true
 
-[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="SoundAffects"]
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="SoundEffects"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 155.6, -4.95541, -17.5091)
 stream = ExtResource("8_ceuim")
 unit_size = 2.0
+
+[node name="Level" type="Node3D" parent="."]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0)
+
+[node name="BackRoomLevel" parent="Level" instance=ExtResource("9_sbd1e")]
+
+[node name="FrontRoomLevel" parent="Level" instance=ExtResource("8_oau76")]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+light_energy = 0.0
+light_indirect_energy = 0.0
 
 [connection signal="body_entered" from="WinZone" to="." method="_on_area_3d_body_entered"]
