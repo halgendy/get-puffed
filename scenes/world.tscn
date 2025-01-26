@@ -106,5 +106,3 @@ transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0)
 [node name="FrontRoomLevel" parent="Level" instance=ExtResource("8_oau76")]
 
 [connection signal="body_entered" from="WinZone" to="." method="_on_area_3d_body_entered"]
-
-[editable path="Level/FrontRoomLevel"]
