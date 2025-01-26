@@ -7819,13 +7819,13 @@ transform = Transform3D(-7, 0, -6.11959e-07, 0, 7, 0, 6.11959e-07, 0, -7, -26.70
 [node name="WaitTimer" type="Timer" parent="DolphinAndPaths/Path1/Dolphin"]
 wait_time = 5.0
 
-[node name="WaterDropletManager" parent="DolphinAndPaths/Path1" instance=ExtResource("8_c88xv")]
+[node name="WaterDropletManager" parent="." instance=ExtResource("8_c88xv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -59.9891, -6.15619, -8.05108)
 
-[node name="WaterDropletManager2" parent="DolphinAndPaths/Path1" instance=ExtResource("8_c88xv")]
+[node name="WaterDropletManager2" parent="." instance=ExtResource("8_c88xv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -46.0877, -6.17713, -6.34733)
 
-[node name="WaterDropletManager3" parent="DolphinAndPaths/Path1" instance=ExtResource("8_c88xv")]
+[node name="WaterDropletManager3" parent="." instance=ExtResource("8_c88xv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -58.5677, -5.63762, -20.7064)
 
 [connection signal="timeout" from="DolphinAndPaths/Path1/Dolphin/WaitTimer" to="DolphinAndPaths/Path1/Dolphin" method="_on_wait_timer_timeout"]
