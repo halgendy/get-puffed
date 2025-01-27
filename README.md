@@ -2,16 +2,16 @@
 ## By the Great Gamer Migration (Global Game Jam 2025)
 
 ### Contributors:
- Tree Diep - Writer, Project Manager, Pixel Artist  
- Chris Smith - Writer, Project Manager, Pixel Artist  
- Annabelle Sun - 3D and Pixel Artist  
- Zlata Rezanova - 3D and Pixel Artist, Voice Actor  
- Isaac Spool - Programmer  
- Sofia Stafford - Music  
- Mar Munné - Sound Effects  
- Hazem Algendy - Programmer, 3D Artist  
- Sharyq Siddiqi - Sound Effects, Programmer  
- Yilei Bai - Programmer  
+  Tree Diep - Writer, Project Manager, Pixel Artist  
+  Chris Smith - Writer, Project Manager, Pixel Artist  
+  Annabelle Sun - 3D and Pixel Artist  
+  Zlata Rezanova - 3D and Pixel Artist, Voice Actor  
+  Isaac Spool - Programmer  
+  Sofia Stafford - Music  
+  Mar Munné - Sound Effects  
+  Hazem Algendy - Programmer, 3D Artist  
+  Sharyq Siddiqi - Sound Effects, Programmer  
+  Yilei Bai - Programmer  
 
 ### The Game:  
 - Stealth Game
