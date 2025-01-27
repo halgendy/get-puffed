@@ -2,12 +2,12 @@
 
 [ext_resource type="Script" path="res://script/world.gd" id="1_48q1r"]
 [ext_resource type="PackedScene" uid="uid://c4fpo65hiycjq" path="res://scenes/player.tscn" id="1_ibnp7"]
-[ext_resource type="PackedScene" uid="uid://pa54c82kyalj" path="res://modules/health_pickup/water_droplet_manager.tscn" id="4_333h4"]
+[ext_resource type="PackedScene" uid="uid://dfk5qunvj1k3j" path="res://modules/health_pickup/water_droplet_manager.tscn" id="4_333h4"]
 [ext_resource type="AudioStream" uid="uid://ghuopm2afusc" path="res://sfx/BackroomsAmbience.wav" id="6_njha0"]
 [ext_resource type="AudioStream" uid="uid://c6oven1xukktu" path="res://sfx/FrontRoomAmbience.wav" id="7_idkp5"]
 [ext_resource type="AudioStream" uid="uid://d06uttoy2mgc3" path="res://sfx/BeachAmbience.wav" id="8_ceuim"]
-[ext_resource type="PackedScene" uid="uid://lcqnh5tp04pl" path="res://scenes/front_room_level.tscn" id="8_oau76"]
-[ext_resource type="PackedScene" uid="uid://kl0i1ra7m7g0" path="res://scenes/back_room_level.tscn" id="9_sbd1e"]
+[ext_resource type="PackedScene" uid="uid://demtxv8ac71ff" path="res://scenes/front_room_level.tscn" id="8_oau76"]
+[ext_resource type="PackedScene" uid="uid://bj8djmldc1t8o" path="res://scenes/back_room_level.tscn" id="9_sbd1e"]
 
 [sub_resource type="Environment" id="Environment_8nuko"]
 background_mode = 2
