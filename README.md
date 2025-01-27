@@ -1,6 +1,6 @@
 # Get Puffed
-### by The Great Gamer Migration
-### for the Global Game Jam
+## By the Great Gamer Migration
+## For the Global Game Jam
 
 ### Contributors:
 Tree Diep - Writer, Project Manager, Pixel Artist  
