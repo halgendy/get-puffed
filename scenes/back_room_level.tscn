@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://dwsmsnifa4gvu" path="res://scenes/dolphin_haz.tscn" id="7_h8p04"]
 [ext_resource type="PackedScene" uid="uid://pa54c82kyalj" path="res://modules/health_pickup/water_droplet_manager.tscn" id="8_c88xv"]
 [ext_resource type="PackedScene" path="res://scenes/dolphin_mafioso.tscn" id="8_o62sp"]
-[ext_resource type="PackedScene" path="res://scenes/dolphin_donfin.tscn" id="9_knxs7"]
+[ext_resource type="PackedScene" uid="uid://c3codwowikmiv" path="res://scenes/dolphin_donfin.tscn" id="9_knxs7"]
 [ext_resource type="AudioStream" uid="uid://ghuopm2afusc" path="res://sfx/BackroomsAmbience.wav" id="11_e782d"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_wqocb"]

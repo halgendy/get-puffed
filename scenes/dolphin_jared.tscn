@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://1isukc8sgcek"]
+[gd_scene load_steps=6 format=3 uid="uid://cwsrvo7olstkp"]
 
 [ext_resource type="PackedScene" uid="uid://cq6i7byh4r1ry" path="res://scenes/dolphin.tscn" id="1_u1caa"]
 [ext_resource type="AudioStream" uid="uid://lpnn2o5ublhj" path="res://sfx/JaredSpeech.wav" id="2_ihora"]
