@@ -110,7 +110,7 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("dash") and last_walk_dir != Vector3.ZERO:
 		print(health.get_percent())
 		if health.get_percent() > 0.25:
-			apply_central_force(last_walk_dir * 1200.0 * mass)
+			apply_central_force(last_walk_dir * 15000.0 * mass)
 			health.drain(20.0)
 			AudioManager.play_audio(movement_audio)
 	
