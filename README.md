@@ -14,6 +14,7 @@ Hazem Algendy - Programmer, 3D Artist
 Sharyq Siddiqi - Sound Effects, Programmer  
 Yilei Bai - Programmer  
 
+The Game:
 - Stealth Game
 - In Bubble, Pufferfish is navigating away from “Get Puffed”, Dolphin Smoke Shop.
  - Big area filled with obstacles
