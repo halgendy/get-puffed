@@ -11,13 +11,10 @@ func _ready() -> void:
 	spawn_position = starting_pickup.position
 
 func make_droplet():
-	print_debug("Droplet Made")
 	var instance = HEALTH_PICKUP.instantiate()
 	add_child(instance)
 	instance.position = spawn_position
-	print_debug(instance.position)
 	instance.picked_up.connect(droplet_picked)
 	
 func droplet_picked():
-	print('Timer Started')
 	timer.start()

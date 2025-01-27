@@ -77,12 +77,6 @@ func _ready() -> void:
 	
 	player_node = get_node("/root").get_child(1).find_child("Player")
 	
-	print("Patrol points:", patrol_points)
-	print("============Player: ", player_node)
-	print("Spotlight: ", spotlight_detector)
-	
-	print("Number of patrol points: ", patrol_points.size())
-	
 	current_point_index = 0
 	next_point_index = 1
 	
@@ -107,7 +101,6 @@ func _physics_process(delta: float) -> void:
 	
 	_determine_state(delta)
 	
-	print("LOOP_START state = ", current_state)
 	
 	if current_state == MODE_CHASING:
 		_chase(delta)
@@ -121,7 +114,6 @@ func _on_wait_timer_timeout() -> void:
 	# timer ended, we need to start walking
 	current_state = MODE_WALKING
 	wait_timer_on = false
-	print("=================TIMER OUT===========")
 	look_at(patrol_points[next_point_index].position)
 	# position.z += 10e
 
@@ -141,16 +133,11 @@ func _reached_point() -> void:
 				next_point_index = current_point_index - 1
 		
 		elif !is_returning:
-			print("not returning")
 			if current_point_index == patrol_points.size() - 1:
-				print("go back")
 				is_returning = true
 				next_point_index = current_point_index - 1
 			else:
 				next_point_index = current_point_index + 1
-	print("current point = ", current_point_index)
-	print("next point = ", next_point_index)
-	print("--------------------------")
 	pass
 
 # helper function to turn the dolphin towards the next patrol point
@@ -165,11 +152,9 @@ func _turn_towards_target(delta: float, target: Vector3, turn_sens: float) -> vo
 # also changes the spotlight color
 func _check_spotlight(delta: float) -> void:
 	
-	print("inside check_spotlight() ", spotlight_detector.overlaps_body(player_node))
 	
 	# print(spotlight_object.light_color)
 	if spotlight_detector.overlaps_body(player_node):
-		print("Found Pedro")
 		spotlight_object.light_color = spotlight_object.light_color.lerp(spotlight_alert_color, spotlight_sensitivity * delta)
 	else:
 		spotlight_object.light_color = spotlight_object.light_color.lerp(spotlight_original_color, spotlight_sensitivity * delta)
@@ -188,17 +173,13 @@ func _determine_state(delta) -> void:
 	
 	if spotlight_object.light_color.r > chase_activation_threshold:
 		current_state = MODE_CHASING
-		print("====CHASE TIME")
 	else:
 		if position == patrol_points[next_point_index].position:
-			print("--------------reached point")
 		
 			current_point_index = next_point_index
 			_reached_point()
-			print("WAIT TIME")
 		else:
 			current_state = MODE_WALKING
-			print("WALK TIME")
 	pass
 
 func _chase(delta: float) -> void:
@@ -222,7 +203,6 @@ func _walk(delta: float) -> void:
 
 func _wait(delta: float) -> void:
 	# currently waiting at a point
-	print("============WAIT")
 	_turn_towards_target(delta, patrol_points[next_point_index].position, turn_speed_patrol)
 
 
