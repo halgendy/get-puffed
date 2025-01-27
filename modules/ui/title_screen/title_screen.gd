@@ -8,7 +8,7 @@ func _on_start_button_pressed() -> void:
 	AudioManager.play_audio(START_GAME)
 	await get_tree().create_timer(2).timeout
 	AudioManager.play_music(GET_PUFFED_BASE)
-	get_tree().change_scene_to_file("res://scenes/world.tscn")
+	get_tree().change_scene_to_file("res://scenes/cutscene.tscn")
 
 func _on_tutorial_pressed() -> void:
 	%MainElements.hide()
