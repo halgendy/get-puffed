@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://7m6kr2e0pli2"]
+[gd_scene load_steps=6 format=3 uid="uid://dwsmsnifa4gvu"]
 
 [ext_resource type="PackedScene" uid="uid://cq6i7byh4r1ry" path="res://scenes/dolphin.tscn" id="1_pqox6"]
 [ext_resource type="Texture2D" uid="uid://dv2vwgjp0cosp" path="res://assets/HAZMAT_BRO.png" id="2_0qqfn"]
@@ -11,7 +11,9 @@ speech_audio = ExtResource("2_7p8ye")
 dolphin_music = ExtResource("2_r1egq")
 
 [node name="FrontSprite" parent="." index="1"]
+texture_filter = 2
 texture = ExtResource("2_0qqfn")
 
 [node name="BackSprite" parent="." index="2"]
+texture_filter = 2
 texture = ExtResource("3_mopbf")

@@ -34,10 +34,12 @@ shape = SubResource("BoxShape3D_b8xsm")
 
 [node name="FrontSprite" type="Sprite3D" parent="."]
 transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 0.5, 0)
+texture_filter = 2
 texture = ExtResource("2_rjt3w")
 
 [node name="BackSprite" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.00282326)
+texture_filter = 2
 texture = ExtResource("3_od10s")
 
 [node name="SpotLight3D" type="SpotLight3D" parent="."]

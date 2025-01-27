@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://ddw0qc001h40e"]
+[gd_scene load_steps=6 format=3 uid="uid://c3codwowikmiv"]
 
 [ext_resource type="PackedScene" uid="uid://cq6i7byh4r1ry" path="res://scenes/dolphin.tscn" id="1_uyug8"]
 [ext_resource type="AudioStream" uid="uid://bnm4a4br6plly" path="res://sfx/DonFinSpeech.wav" id="2_5k574"]
@@ -11,7 +11,9 @@ speech_audio = ExtResource("2_5k574")
 dolphin_music = ExtResource("3_xxe1f")
 
 [node name="FrontSprite" parent="." index="1"]
+texture_filter = 2
 texture = ExtResource("2_p1npc")
 
 [node name="BackSprite" parent="." index="2"]
+texture_filter = 2
 texture = ExtResource("3_x1hpp")

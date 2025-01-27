@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://oqek1m4ba81i" path="res://assets/environment/Environment_Complete_4.png" id="4_4efnv"]
 [ext_resource type="Texture2D" uid="uid://cwqkt7aox1hqj" path="res://assets/environment/Environment_Complete_6.png" id="5_wsgx8"]
 [ext_resource type="Texture2D" uid="uid://d05h34scvhma2" path="res://assets/environment/Environment_Complete_5.png" id="6_4a4vd"]
-[ext_resource type="PackedScene" path="res://scenes/dolphin_haz.tscn" id="7_h8p04"]
+[ext_resource type="PackedScene" uid="uid://dwsmsnifa4gvu" path="res://scenes/dolphin_haz.tscn" id="7_h8p04"]
 [ext_resource type="PackedScene" uid="uid://pa54c82kyalj" path="res://modules/health_pickup/water_droplet_manager.tscn" id="8_c88xv"]
 [ext_resource type="PackedScene" path="res://scenes/dolphin_mafioso.tscn" id="8_o62sp"]
 [ext_resource type="PackedScene" path="res://scenes/dolphin_donfin.tscn" id="9_knxs7"]
