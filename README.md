@@ -1,4 +1,6 @@
 # Get Puffed
+`get-puffed` is the only game where you that makes you feel like a dolphin and a pufferfish store... or was it the other way around?
+
 ## By the Great Gamer Migration (Global Game Jam 2025)
 
 ### Contributors:
